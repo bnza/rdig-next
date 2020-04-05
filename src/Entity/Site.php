@@ -46,10 +46,11 @@ class Site implements SiteRelateEntityInterface
     private $name;
 
     /**
-     * Many Sites have Many Users.
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="sites")
+     * @var UserSites[]
+     * One Sites have Many allowed users.
+     * @ORM\OneToMany(targetEntity="UserSites", mappedBy="site")
      */
-    private $users;
+    private $allowedUsers;
 
     /**
      * @var Area[]
@@ -80,7 +81,7 @@ class Site implements SiteRelateEntityInterface
     private $phases;
 
     public function __construct() {
-        $this->users = new ArrayCollection();
+        $this->allowedUsers = new ArrayCollection();
         $this->areas = new ArrayCollection();
         $this->contexts = new ArrayCollection();
         $this->campaigns = new ArrayCollection();

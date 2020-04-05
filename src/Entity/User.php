@@ -13,14 +13,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity()
  * @ORM\Table(name="app_users")
  */
-class User implements UserInterface, \Serializable, CrudEntityInterface
+class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $uuid;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
@@ -46,45 +45,45 @@ class User implements UserInterface, \Serializable, CrudEntityInterface
     private $roles = 'ROLE_USER';
 
     /**
-     * Many Users have Many Sites.
-     * @ORM\ManyToMany(targetEntity="Site", inversedBy="users")
-     * @ORM\JoinTable(name="users_allowed_sites")
+     * @var UserSites[]
+     * One User have Many allowed sites.
+     * @ORM\OneToMany(targetEntity="UserSites", mappedBy="user")
      */
-    private $sites;
+    private $allowedSites;
 
     /**
      * @return ArrayCollection
      */
-    public function getSites()
+    public function getAllowedSites()
     {
-        return $this->sites;
+        return $this->allowedSites;
     }
 
-    /**
-     * @param Site $site
-     */
-    public function addSite(Site $site): void
-    {
-        $site->addUser($this); // synchronously updating inverse side
-        $this->sites[] = $site;
-    }
-
-    public function removeSite(Site $site): void
-    {
-        $site->removeUser($this); // synchronously updating inverse side
-        $this->sites->removeElement($site);
-    }
+//    /**
+//     * @param Site $site
+//     */
+//    public function addSite(Site $site): void
+//    {
+//        $site->addUser($this); // synchronously updating inverse side
+//        $this->sites[] = $site;
+//    }
+//
+//    public function removeSite(Site $site): void
+//    {
+//        $site->removeUser($this); // synchronously updating inverse side
+//        $this->sites->removeElement($site);
+//    }
 
     public function __construct() {
-        $this->sites = new ArrayCollection();
+        $this->allowedSites = new ArrayCollection();
     }
 
     /**
      * @return integer
      */
-    public function getId(): int
+    public function getUuid(): int
     {
-        return $this->id;
+        return $this->uuid;
     }
 
     /**
