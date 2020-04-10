@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use App\Exceptions\CrudException;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -33,8 +32,9 @@ class ObjectEntity extends AbstractFinding
     private $campaign;
 
     /**
-     * Registration number
-     * @var integer
+     * Registration number.
+     *
+     * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
     private $no;
@@ -252,25 +252,16 @@ class ObjectEntity extends AbstractFinding
      */
     private $etutluk;
 
-    /**
-     * @return Campaign
-     */
     public function getCampaign(): Campaign
     {
         return $this->campaign;
     }
 
-    /**
-     * @param Campaign $campaign
-     */
     public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;
     }
 
-    /**
-     * @return int
-     */
     public function getFragments(): int
     {
         return $this->fragments;
@@ -300,9 +291,6 @@ class ObjectEntity extends AbstractFinding
         $this->conservationYear = $conservationYear;
     }
 
-    /**
-     * @return float
-     */
     public function getCoordN(): float
     {
         return $this->coordN;
@@ -316,9 +304,6 @@ class ObjectEntity extends AbstractFinding
         $this->coordN = (float) $coordN;
     }
 
-    /**
-     * @return float
-     */
     public function getCoordE(): float
     {
         return $this->coordE;
@@ -332,9 +317,6 @@ class ObjectEntity extends AbstractFinding
         $this->coordE = (float) $coordE;
     }
 
-    /**
-     * @return float
-     */
     public function getCoordZ(): float
     {
         return $this->coordZ;
@@ -348,9 +330,6 @@ class ObjectEntity extends AbstractFinding
         $this->coordZ = (float) $coordZ;
     }
 
-    /**
-     * @return string
-     */
     public function getLocation(): string
     {
         return $this->location;
@@ -364,9 +343,6 @@ class ObjectEntity extends AbstractFinding
         $this->location = $location;
     }
 
-    /**
-     * @return bool
-     */
     public function getDrawing(): bool
     {
         return $this->drawing;
@@ -380,9 +356,6 @@ class ObjectEntity extends AbstractFinding
         $this->drawing = (bool) $drawing;
     }
 
-    /**
-     * @return bool
-     */
     public function getPhoto(): bool
     {
         return $this->photo;
@@ -396,9 +369,6 @@ class ObjectEntity extends AbstractFinding
         $this->photo = (bool) $photo;
     }
 
-    /**
-     * @return bool
-     */
     public function getEnvanterlik(): bool
     {
         return $this->envanterlik;
@@ -412,9 +382,6 @@ class ObjectEntity extends AbstractFinding
         $this->envanterlik = (bool) $envanterlik;
     }
 
-    /**
-     * @return bool
-     */
     public function getEtutluk(): bool
     {
         return $this->etutluk;
@@ -428,9 +395,6 @@ class ObjectEntity extends AbstractFinding
         $this->etutluk = (bool) $etutluk;
     }
 
-    /**
-     * @return int
-     */
     public function getNo(): int
     {
         return $this->no;
@@ -460,9 +424,6 @@ class ObjectEntity extends AbstractFinding
         $this->duplicate = $duplicate;
     }
 
-    /**
-     * @return float
-     */
     public function getHeight(): float
     {
         return $this->height;
@@ -476,9 +437,6 @@ class ObjectEntity extends AbstractFinding
         $this->height = $this->castNumeric($height, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getLength(): float
     {
         return $this->length;
@@ -492,9 +450,6 @@ class ObjectEntity extends AbstractFinding
         $this->length = $this->castNumeric($length, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getWidth(): float
     {
         return $this->width;
@@ -508,9 +463,6 @@ class ObjectEntity extends AbstractFinding
         $this->width = $this->castNumeric($width, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getThickness(): float
     {
         return $this->thickness;
@@ -524,9 +476,6 @@ class ObjectEntity extends AbstractFinding
         $this->thickness = $this->castNumeric($thickness, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getDiameter(): float
     {
         return $this->diameter;
@@ -540,9 +489,6 @@ class ObjectEntity extends AbstractFinding
         $this->diameter = $this->castNumeric($diameter, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getPerforationDiameter(): float
     {
         return $this->perforationDiameter;
@@ -556,9 +502,6 @@ class ObjectEntity extends AbstractFinding
         $this->perforationDiameter = $this->castNumeric($perforationDiameter, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getWeight(): float
     {
         return $this->weight;
@@ -569,12 +512,9 @@ class ObjectEntity extends AbstractFinding
      */
     public function setWeight($weight)
     {
-        $this->weight = $this->castNumeric($weight, 'float');;
+        $this->weight = $this->castNumeric($weight, 'float');
     }
 
-    /**
-     * @return VocOClass
-     */
     public function getClass(): VocOClass
     {
         return $this->class;
@@ -588,9 +528,6 @@ class ObjectEntity extends AbstractFinding
         $this->class = $class;
     }
 
-    /**
-     * @return VocOMaterialClass
-     */
     public function getMaterialClass(): VocOMaterialClass
     {
         return $this->materialClass;
@@ -604,9 +541,6 @@ class ObjectEntity extends AbstractFinding
         $this->materialClass = $materialClass;
     }
 
-    /**
-     * @return VocOMaterialType
-     */
     public function getMaterialType(): VocOMaterialType
     {
         return $this->materialType;
@@ -620,9 +554,6 @@ class ObjectEntity extends AbstractFinding
         $this->materialType = $materialType;
     }
 
-    /**
-     * @return VocOTechnique
-     */
     public function getTechnique(): VocOTechnique
     {
         return $this->technique;
@@ -636,9 +567,6 @@ class ObjectEntity extends AbstractFinding
         $this->technique = $technique;
     }
 
-    /**
-     * @return VocOType
-     */
     public function getType(): VocOType
     {
         return $this->type;
@@ -652,9 +580,6 @@ class ObjectEntity extends AbstractFinding
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function getSubType(): string
     {
         return $this->subType;
@@ -668,9 +593,6 @@ class ObjectEntity extends AbstractFinding
         $this->subType = $subType;
     }
 
-    /**
-     * @return VocFColor
-     */
     public function getColor(): VocFColor
     {
         return $this->color;
@@ -684,9 +606,6 @@ class ObjectEntity extends AbstractFinding
         $this->color = $color;
     }
 
-    /**
-     * @return VocOPreservation
-     */
     public function getPreservation(): VocOPreservation
     {
         return $this->preservation;
@@ -700,9 +619,6 @@ class ObjectEntity extends AbstractFinding
         $this->preservation = $preservation;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getRetrievalDate(): \DateTime
     {
         return $this->retrievalDate;
@@ -710,6 +626,7 @@ class ObjectEntity extends AbstractFinding
 
     /**
      * @param string|\DateTime $retrievalDate
+     *
      * @throws CrudException
      */
     public function setRetrievalDate($retrievalDate): void
@@ -717,17 +634,16 @@ class ObjectEntity extends AbstractFinding
         if ($retrievalDate && is_string($retrievalDate)) {
             $retrievalDateString = $retrievalDate;
             if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{2}$/', $retrievalDate)) {
-
                 $retrievalDate = \DateTime::createFromFormat('d/m/y', $retrievalDateString);
                 if (!$retrievalDate) {
                     throw new CrudException("Invalid date format ($retrievalDateString)");
                 }
-            } else if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $retrievalDate)) {
+            } elseif (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $retrievalDate)) {
                 $retrievalDate = \DateTime::createFromFormat('d/m/Y', $retrievalDateString);
                 if (!$retrievalDate) {
                     throw new CrudException("Invalid date format ($retrievalDateString)");
                 }
-            } else if (preg_match('/^\d{4}$/', $retrievalDate)) {
+            } elseif (preg_match('/^\d{4}$/', $retrievalDate)) {
                 $retrievalDate = null;
             } else {
                 try {
@@ -736,14 +652,10 @@ class ObjectEntity extends AbstractFinding
                     throw new CrudException("Invalid date format ($retrievalDateString)");
                 }
             }
-
         }
-        $this->retrievalDate = $retrievalDate ? $retrievalDate: null;
+        $this->retrievalDate = $retrievalDate ? $retrievalDate : null;
     }
 
-    /**
-     * @return string
-     */
     public function getInscription(): string
     {
         return $this->inscription;
@@ -757,9 +669,6 @@ class ObjectEntity extends AbstractFinding
         $this->inscription = $inscription;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
@@ -773,9 +682,6 @@ class ObjectEntity extends AbstractFinding
         $this->description = $description;
     }
 
-    /**
-     * @return VocODecoration
-     */
     public function getDecoration(): VocODecoration
     {
         return $this->decoration;
@@ -790,9 +696,9 @@ class ObjectEntity extends AbstractFinding
     }
 
     /**
-     * Override site using the bucket one
+     * Override site using the bucket one.
+     *
      * @ORM\PrePersist
-     * @param LifecycleEventArgs $event
      */
     public function setCampaignByBucket(LifecycleEventArgs $event)
     {
@@ -801,5 +707,4 @@ class ObjectEntity extends AbstractFinding
             $this->campaign = $finding->getBucket()->getCampaign();
         }
     }
-
 }

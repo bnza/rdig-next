@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -83,9 +83,6 @@ class Bucket implements SiteRelateEntityInterface
         $this->findings = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -115,17 +112,11 @@ class Bucket implements SiteRelateEntityInterface
         $this->type = $type;
     }
 
-    /**
-     * @return Campaign
-     */
     public function getCampaign(): Campaign
     {
         return $this->campaign;
     }
 
-    /**
-     * @param Campaign $campaign
-     */
     public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;
@@ -147,17 +138,11 @@ class Bucket implements SiteRelateEntityInterface
         $this->num = $num;
     }
 
-    /**
-     * @return Context
-     */
     public function getContext(): Context
     {
         return $this->context;
     }
 
-    /**
-     * @param Context $context
-     */
     public function setContext(Context $context): void
     {
         $this->context = $context;
@@ -249,8 +234,6 @@ class Bucket implements SiteRelateEntityInterface
 
     /**
      * @ORM\PrePersist
-     *
-     * @param LifecycleEventArgs $event
      */
     public function formatNum(LifecycleEventArgs $event)
     {

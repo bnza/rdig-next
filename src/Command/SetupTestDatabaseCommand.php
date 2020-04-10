@@ -1,16 +1,14 @@
 <?php
 
-
 namespace App\Command;
 
-use \RuntimeException;
 use App\Service\Helper\MysqlCli\MysqlCliDumpRestorer;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 class SetupTestDatabaseCommand extends Command
 {
@@ -39,14 +37,14 @@ class SetupTestDatabaseCommand extends Command
             ->setDescription('Set up the test database')
             ->addArgument('dump', InputArgument::OPTIONAL, 'The dump file name without extension', 'latest')
             ->setHelp(
-                'This command allows you to set up the test database dropping the old one and ' .
+                'This command allows you to set up the test database dropping the old one and '.
                 'restore the whole schema from a chosen dump placed in test/data/Functional/Migration folder'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ($_ENV['APP_ENV'] !== 'test') {
+        if ('test' !== $_ENV['APP_ENV']) {
             throw new RuntimeException('This command should be only run in "test" environment');
         }
 
@@ -77,11 +75,9 @@ class SetupTestDatabaseCommand extends Command
     {
         $createCommand = $this->getApplication()->find('doctrine:database:create');
         $createCommandInput = new ArrayInput([
-            'command' => 'doctrine:database:create'
+            'command' => 'doctrine:database:create',
         ]);
 
         return $createCommand->run($createCommandInput, $output);
     }
-
-
 }

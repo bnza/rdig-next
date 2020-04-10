@@ -3,9 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Table(name="pottery", uniqueConstraints={
@@ -138,7 +136,6 @@ class Pottery extends AbstractFinding
      */
     private $baseHeight;
 
-
     /**
      * @var float
      * @ORM\Column(type="float", nullable=true)
@@ -205,9 +202,6 @@ class Pottery extends AbstractFinding
      */
     private $restored;
 
-    /**
-     * @return bool
-     */
     public function isEnvanterlik(): bool
     {
         return $this->envanterlik;
@@ -221,9 +215,6 @@ class Pottery extends AbstractFinding
         $this->envanterlik = (bool) $envanterlik;
     }
 
-    /**
-     * @return bool
-     */
     public function isEtutluk(): bool
     {
         return $this->etutluk;
@@ -237,9 +228,6 @@ class Pottery extends AbstractFinding
         $this->etutluk = (bool) $etutluk;
     }
 
-    /**
-     * @return string
-     */
     public function getLocation(): string
     {
         return $this->location;
@@ -253,9 +241,6 @@ class Pottery extends AbstractFinding
         $this->location = $location;
     }
 
-    /**
-     * @return string
-     */
     public function getDrawingNumber(): string
     {
         return $this->drawingNumber;
@@ -266,13 +251,10 @@ class Pottery extends AbstractFinding
      */
     public function setDrawingNumber($drawingNumber): void
     {
-        $drawingNumber = $drawingNumber === '' ? null : $drawingNumber;
+        $drawingNumber = '' === $drawingNumber ? null : $drawingNumber;
         $this->drawingNumber = $drawingNumber;
     }
 
-    /**
-     * @return bool
-     */
     public function isRestored(): bool
     {
         return $this->restored;
@@ -286,9 +268,6 @@ class Pottery extends AbstractFinding
         $this->restored = (bool) $restored;
     }
 
-    /**
-     * @return float
-     */
     public function getRimDiameter(): float
     {
         return $this->rimDiameter;
@@ -302,9 +281,6 @@ class Pottery extends AbstractFinding
         $this->rimDiameter = $this->castNumeric($rimDiameter, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getRimWidth(): float
     {
         return $this->rimWidth;
@@ -318,9 +294,6 @@ class Pottery extends AbstractFinding
         $this->rimWidth = $this->castNumeric($rimWidth, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getWallWidth(): float
     {
         return $this->wallWidth;
@@ -334,9 +307,6 @@ class Pottery extends AbstractFinding
         $this->wallWidth = $this->castNumeric($wallWidth, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getMaxWallDiameter(): float
     {
         return $this->maxWallDiameter;
@@ -350,9 +320,6 @@ class Pottery extends AbstractFinding
         $this->maxWallDiameter = $this->castNumeric($maxWallDiameter, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getBaseWidth(): float
     {
         return $this->baseWidth;
@@ -366,9 +333,6 @@ class Pottery extends AbstractFinding
         $this->baseWidth = $this->castNumeric($baseWidth, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getBaseHeight(): float
     {
         return $this->baseHeight;
@@ -382,9 +346,6 @@ class Pottery extends AbstractFinding
         $this->baseHeight = $this->castNumeric($baseHeight, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getBaseDiameter(): float
     {
         return $this->baseDiameter;
@@ -398,9 +359,6 @@ class Pottery extends AbstractFinding
         $this->baseDiameter = $this->castNumeric($baseDiameter, 'float');
     }
 
-    /**
-     * @return float
-     */
     public function getHeight(): float
     {
         return $this->height;
@@ -411,12 +369,9 @@ class Pottery extends AbstractFinding
      */
     public function setHeight($height)
     {
-        $this->height = $this->castNumeric($height, 'float');;
+        $this->height = $this->castNumeric($height, 'float');
     }
 
-    /**
-     * @return VocPFiring
-     */
     public function getFiring(): VocPFiring
     {
         return $this->firing;
@@ -430,9 +385,6 @@ class Pottery extends AbstractFinding
         $this->firing = $firing;
     }
 
-    /**
-     * @return VocPClass
-     */
     public function getClass(): VocPClass
     {
         return $this->class;
@@ -446,9 +398,6 @@ class Pottery extends AbstractFinding
         $this->class = $class;
     }
 
-    /**
-     * @return VocFColor
-     */
     public function getCoreColor(): VocFColor
     {
         return $this->coreColor;
@@ -462,9 +411,6 @@ class Pottery extends AbstractFinding
         $this->coreColor = $coreColor;
     }
 
-    /**
-     * @return VocFColor
-     */
     public function getInnerColor(): VocFColor
     {
         return $this->innerColor;
@@ -478,9 +424,6 @@ class Pottery extends AbstractFinding
         $this->innerColor = $innerColor;
     }
 
-    /**
-     * @return VocFColor
-     */
     public function getOuterColor(): VocFColor
     {
         return $this->outerColor;
@@ -494,9 +437,6 @@ class Pottery extends AbstractFinding
         $this->outerColor = $outerColor;
     }
 
-    /**
-     * @return VocPDecoration
-     */
     public function getInnerDecoration(): VocPDecoration
     {
         return $this->innerDecoration;
@@ -510,17 +450,11 @@ class Pottery extends AbstractFinding
         $this->innerDecoration = $innerDecoration;
     }
 
-    /**
-     * @return VocPDecoration
-     */
     public function getOuterDecoration(): VocPDecoration
     {
         return $this->outerDecoration;
     }
 
-    /**
-     * @return VocPInclusionsFrequency
-     */
     public function getInclusionsFrequency(): VocPInclusionsFrequency
     {
         return $this->inclusionsFrequency;
@@ -534,9 +468,6 @@ class Pottery extends AbstractFinding
         $this->inclusionsFrequency = $inclusionFrequency;
     }
 
-    /**
-     * @return VocPInclusionsSize
-     */
     public function getInclusionsSize(): VocPInclusionsSize
     {
         return $this->inclusionsSize;
@@ -550,9 +481,6 @@ class Pottery extends AbstractFinding
         $this->inclusionsSize = $inclusionsSize;
     }
 
-    /**
-     * @return VocPInclusionsType
-     */
     public function getInclusionsType(): VocPInclusionsType
     {
         return $this->inclusionsType;
@@ -574,9 +502,6 @@ class Pottery extends AbstractFinding
         $this->outerDecoration = $outerDecoration;
     }
 
-    /**
-     * @return VocPPreservation
-     */
     public function getPreservation(): VocPPreservation
     {
         return $this->preservation;
@@ -590,9 +515,6 @@ class Pottery extends AbstractFinding
         $this->preservation = $preservation;
     }
 
-    /**
-     * @return VocPShape
-     */
     public function getShape(): VocPShape
     {
         return $this->shape;
@@ -606,9 +528,6 @@ class Pottery extends AbstractFinding
         $this->shape = $shape;
     }
 
-    /**
-     * @return VocPTechnique
-     */
     public function getTechnique(): VocPTechnique
     {
         return $this->technique;
@@ -622,9 +541,6 @@ class Pottery extends AbstractFinding
         $this->technique = $technique;
     }
 
-    /**
-     * @return VocPSurfaceTreatment
-     */
     public function getInnerSurfaceTreatment(): VocPSurfaceTreatment
     {
         return $this->innerSurfaceTreatment;
@@ -638,9 +554,6 @@ class Pottery extends AbstractFinding
         $this->innerSurfaceTreatment = $innerSurfaceTreatment;
     }
 
-    /**
-     * @return VocPSurfaceTreatment
-     */
     public function getOuterSurfaceTreatment(): VocPSurfaceTreatment
     {
         return $this->outerSurfaceTreatment;
@@ -653,5 +566,4 @@ class Pottery extends AbstractFinding
     {
         $this->outerSurfaceTreatment = $outerSurfaceTreatment;
     }
-
 }

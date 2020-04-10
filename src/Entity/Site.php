@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -18,7 +18,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class Site implements SiteRelateEntityInterface
 {
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -46,41 +45,42 @@ class Site implements SiteRelateEntityInterface
     private $name;
 
     /**
-     * @var UserSites[]
-     * One Sites have Many allowed users.
+     * @var userSites[]
+     *                  One Sites have Many allowed users
      * @ORM\OneToMany(targetEntity="UserSites", mappedBy="site")
      */
     private $allowedUsers;
 
     /**
-     * @var Area[]
-     * One Site has Many Areas.
+     * @var area[]
+     *             One Site has Many Areas
      * @ORM\OneToMany(targetEntity="Area", mappedBy="site")
      */
     private $areas;
 
     /**
-     * @var Context[]
-     * One Site has Many Areas.
+     * @var context[]
+     *                One Site has Many Areas
      * @ORM\OneToMany(targetEntity="Context", mappedBy="site")
      */
     private $contexts;
 
     /**
-     * @var Campaign[]
-     * One Site has Many Areas.
+     * @var campaign[]
+     *                 One Site has Many Areas
      * @ORM\OneToMany(targetEntity="Campaign", mappedBy="site")
      */
     private $campaigns;
 
     /**
-     * @var Phase[]
-     * One Site has Many Areas.
+     * @var phase[]
+     *              One Site has Many Areas
      * @ORM\OneToMany(targetEntity="Phase", mappedBy="site")
      */
     private $phases;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->allowedUsers = new ArrayCollection();
         $this->areas = new ArrayCollection();
         $this->contexts = new ArrayCollection();
@@ -95,9 +95,6 @@ class Site implements SiteRelateEntityInterface
         return $this->areas;
     }
 
-    /**
-     * @param Area $area
-     */
     public function addArea(Area $area)
     {
         $this->areas[] = $area;
@@ -127,9 +124,6 @@ class Site implements SiteRelateEntityInterface
 //        $this->users->removeElement($user);
 //    }
 
-    /**
-     * @return integer
-     */
     public function getId(): int
     {
         return $this->id;

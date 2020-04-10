@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,16 +18,16 @@ class UserSites
     private $id;
 
     /**
-     * @var Site
-     * Many Areas have One Site.
+     * @var site
+     *           Many Areas have One Site
      * @ORM\ManyToOne(targetEntity="Site", inversedBy="allowedUsers")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
     private $site;
 
     /**
-     * @var User
-     * Many Areas have One Site.
+     * @var user
+     *           Many Areas have One Site
      * @ORM\ManyToOne(targetEntity="User", inversedBy="allowedSites")
      * @ORM\JoinColumn(name="site", referencedColumnName="uuid", nullable=false, onDelete="NO ACTION")
      */

@@ -2,12 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\CrudEntityInterface;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity()
@@ -45,8 +43,8 @@ class User implements UserInterface, \Serializable
     private $roles = 'ROLE_USER';
 
     /**
-     * @var UserSites[]
-     * One User have Many allowed sites.
+     * @var userSites[]
+     *                  One User have Many allowed sites
      * @ORM\OneToMany(targetEntity="UserSites", mappedBy="user")
      */
     private $allowedSites;
@@ -74,13 +72,11 @@ class User implements UserInterface, \Serializable
 //        $this->sites->removeElement($site);
 //    }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->allowedSites = new ArrayCollection();
     }
 
-    /**
-     * @return integer
-     */
     public function getUuid(): int
     {
         return $this->uuid;
@@ -94,9 +90,6 @@ class User implements UserInterface, \Serializable
         return explode(',', $this->roles);
     }
 
-    /**
-     * @param array $roles
-     */
     public function setRoles(array $roles): void
     {
         $this->roles = implode(',', $roles);
@@ -131,9 +124,6 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    /**
-     * @return int
-     */
     public function getAttempts(): int
     {
         return $this->attempts;
@@ -149,12 +139,12 @@ class User implements UserInterface, \Serializable
 
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->username,
             $this->password,
             $this->roles,
-        ));
+        ]);
     }
 
     public function unserialize($serialized)
@@ -167,15 +157,12 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-    /**
-     * @param SiteRelateEntityInterface $entity
-     * @return bool
-     */
     public function isSiteAllowed(SiteRelateEntityInterface $entity): bool
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("id", $entity->getSiteId()))
+            ->where(Criteria::expr()->eq('id', $entity->getSiteId()))
             ->setMaxResults(1);
+
         return (bool) $this->sites->matching($criteria)->count();
     }
 
@@ -184,7 +171,7 @@ class User implements UserInterface, \Serializable
         $data = [
             'id' => $this->id,
             'username' => $this->username,
-            'roles' => $this->roles
+            'roles' => $this->roles,
         ];
 
         return $data;

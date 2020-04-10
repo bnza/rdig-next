@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -33,7 +33,7 @@ abstract class AbstractFinding implements SiteRelateEntityInterface
 
     /**
      * @var Bucket
-     * Many Buckets have One Campaign
+     *             Many Buckets have One Campaign
      * @ORM\ManyToOne(targetEntity="Bucket", inversedBy="findings")
      * @ORM\JoinColumn(name="bucket", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
@@ -63,9 +63,6 @@ abstract class AbstractFinding implements SiteRelateEntityInterface
      */
     private $chronology;
 
-    /**
-     * @return VocFChronology
-     */
     public function getChronology(): VocFChronology
     {
         return $this->chronology;
@@ -115,33 +112,21 @@ abstract class AbstractFinding implements SiteRelateEntityInterface
         $this->num = $num;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Bucket
-     */
     public function getBucket(): Bucket
     {
         return $this->bucket;
     }
 
-    /**
-     * @param Bucket $bucket
-     */
     public function setBucket(Bucket $bucket): void
     {
         $this->bucket = $bucket;
     }
 
-    /**
-     * @return int
-     */
     public function getSiteId(): int
     {
         return $this->bucket->getSiteId();
@@ -173,13 +158,13 @@ abstract class AbstractFinding implements SiteRelateEntityInterface
     {
         $bucketCode = $this->getBucket() ? (string) $this->getBucket() : 'XX.0000.X.0';
         $findingNum = $this->getNum() ? $this->getNum() : '0';
+
         return "$bucketCode.$findingNum";
     }
 
     protected function castNumeric($number, string $type = 'int', bool $throw = false)
     {
-        if (is_numeric($number))
-        {
+        if (is_numeric($number)) {
             switch ($type) {
                 case 'int':
                 case 'integer':
@@ -193,13 +178,14 @@ abstract class AbstractFinding implements SiteRelateEntityInterface
                     return (float) $number;
                 default:
                     if ($throw) {
-                        throw new \InvalidArgumentException(sprintf("[%s] is not a valid number type", $number, $type));
+                        throw new \InvalidArgumentException(sprintf('[%s] is not a valid number type', $number, $type));
                     }
             }
         }
         if ($throw) {
-            throw new \InvalidArgumentException(sprintf("%s is not a valid [%s] number", $number, $type));
+            throw new \InvalidArgumentException(sprintf('%s is not a valid [%s] number', $number, $type));
         }
+
         return $number;
     }
 }

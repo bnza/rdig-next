@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Service\Helper\MysqlCli;
 
-
 /**
- * Generates mysql cli connection parameter string
+ * Generates mysql cli connection parameter string.
  */
 class MysqlCliConnectionParametersFormatter
 {
@@ -19,13 +17,13 @@ class MysqlCliConnectionParametersFormatter
         'port' => '-P',
         'user' => '-u',
         'pass' => '-p',
-        'path' => ''
+        'path' => '',
     ];
 
     public function __construct(string $databaseUrl)
     {
         $this->urlComponents = parse_url($databaseUrl);
-        if ($this->urlComponents === false) {
+        if (false === $this->urlComponents) {
             throw new \InvalidArgumentException("Malformed URL:'$databaseUrl'");
         }
     }
@@ -38,12 +36,13 @@ class MysqlCliConnectionParametersFormatter
                 continue;
             }
             $value = $this->urlComponents[$component];
-            if ($component === 'path') {
+            if ('path' === $component) {
                 //Remove trailing slash from dbname
                 $value = ltrim($value, '/');
             }
             $string .= " $flag$value";
         }
+
         return $string;
     }
 }

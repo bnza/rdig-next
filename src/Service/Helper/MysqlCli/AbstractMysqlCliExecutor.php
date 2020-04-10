@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Service\Helper\MysqlCli;
 
 use App\Exception\MysqlCliException;
 
 abstract class AbstractMysqlCliExecutor
 {
-
     /**
      * @var MysqlCliConnectionParametersFormatter
      */
@@ -20,18 +18,18 @@ abstract class AbstractMysqlCliExecutor
         $this->formatter = $formatter;
     }
 
-    public function execute(array $options, ?string $outputFilePath='', ?string $inputFilePath=''): array
+    public function execute(array $options, ?string $outputFilePath = '', ?string $inputFilePath = ''): array
     {
         $command = $this->getCommand($options);
         if ($inputFilePath) {
             if (!file_exists($inputFilePath)) {
-                throw new \RuntimeException('No such file: ' . dirname($inputFilePath));
+                throw new \RuntimeException('No such file: '.dirname($inputFilePath));
             }
             $command .= "<$inputFilePath";
         }
         if ($outputFilePath) {
             if (!file_exists(dirname($outputFilePath))) {
-                throw new \RuntimeException('Directory does not exist: ' . dirname($outputFilePath));
+                throw new \RuntimeException('Directory does not exist: '.dirname($outputFilePath));
             }
             $command .= ">$outputFilePath";
         }
@@ -39,9 +37,10 @@ abstract class AbstractMysqlCliExecutor
         $output = [];
         $return = 0;
         exec($command, $output, $return);
-        if ($return !== 0) {
+        if (0 !== $return) {
             throw new MysqlCliException($command, $output, $return);
         }
+
         return $output;
     }
 
@@ -54,12 +53,11 @@ abstract class AbstractMysqlCliExecutor
                 $commandOptions .= escapeshellarg($value);
             }
         }
+
         return $this->getCommandName()
-                . ' '
-            . $commandOptions
                 .' '
-            . $this->formatter->format();
+            .$commandOptions
+                .' '
+            .$this->formatter->format();
     }
-
-
 }

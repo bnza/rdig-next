@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -60,8 +60,8 @@ class Area implements SiteRelateEntityInterface
     private $location;
 
     /**
-     * @var Site
-     * Many Areas have One Site.
+     * @var site
+     *           Many Areas have One Site
      * @ORM\ManyToOne(targetEntity="Site", inversedBy="areas")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
@@ -69,17 +69,16 @@ class Area implements SiteRelateEntityInterface
 
     /**
      * One Area has Many Contexts.
+     *
      * @ORM\OneToMany(targetEntity="Context", mappedBy="area")
      */
     private $contexts;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->contexts = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -171,7 +170,6 @@ class Area implements SiteRelateEntityInterface
     }
 
     /**
-     * @param Context $context
      * @throws \Exception
      */
     public function addContexts(Context $context)

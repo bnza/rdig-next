@@ -2,12 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\CrudEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 
 /**
  * @ORM\MappedSuperclass
@@ -27,9 +22,6 @@ abstract class AbstractVocabulary implements CrudEntityInterface
      */
     private $value;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -63,7 +55,7 @@ abstract class AbstractVocabulary implements CrudEntityInterface
     {
         return [
             'id' => $this->id,
-            'value' => $this->value
+            'value' => $this->value,
         ];
     }
 }

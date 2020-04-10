@@ -17,7 +17,7 @@ final class Version20200405185656 extends AbstractMigration
         return 'Change `user` table id to uuid (2/2)';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->addSql('ALTER TABLE `app_users` MODIFY COLUMN `id` INT(11)');
         $this->addSql('ALTER TABLE `app_users` DROP PRIMARY KEY;');
@@ -34,10 +34,9 @@ ALTER TABLE `users_allowed_sites`
             ON DELETE CASCADE ;
 EOL;
         $this->addSql($addFkConstraintSql);
-
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         $this->addSql('ALTER TABLE `users_allowed_sites` DROP FOREIGN KEY `FK_7644B8B6A76ED395`;');
         $this->addSql('ALTER TABLE `users_allowed_sites` ADD COLUMN `user_id` INT(11);');

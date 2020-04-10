@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Service\Helper\MysqlCli;
 
 class MysqlCliDumpRestorer
@@ -17,7 +16,6 @@ class MysqlCliDumpRestorer
 
     public function execute(string $dumpPath): array
     {
-        return $this->executor->execute([],null,$dumpPath);
+        return $this->executor->execute([], null, $dumpPath);
     }
-
 }

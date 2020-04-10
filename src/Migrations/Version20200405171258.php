@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use Doctrine\DBAL\Exception\InvalidFieldNameException;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\DBAL\FetchMode;
-use Doctrine\DBAL\Exception\InvalidFieldNameException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -29,7 +29,6 @@ final class Version20200405171258 extends AbstractMigration
             ->connection
             ->executeQuery('SELECT `id` FROM `app_users`')
             ->fetchAll(FetchMode::COLUMN);
-
     }
 
     public function up(Schema $schema): void
@@ -49,7 +48,7 @@ final class Version20200405171258 extends AbstractMigration
             $this->generateUuids();
             $this->updateUuidForeignKey();
         } catch (InvalidFieldNameException $e) {
-            if (strpos($e->getMessage(), "Unknown column 'uuid'") === false) {
+            if (false === strpos($e->getMessage(), "Unknown column 'uuid'")) {
                 throw $e;
             }
         }
@@ -82,7 +81,7 @@ EOL;
         $this->write('Generating `app_users` uuids...');
         $updateStmt = $this->connection->prepare('UPDATE `app_users` SET `uuid` = :uuid WHERE `id` = :id');
         foreach ($this->ids as $row) {
-            $updateStmt->execute(['uuid'=>Uuid::uuid4(),'id'=>$row[0]]);
+            $updateStmt->execute(['uuid' => Uuid::uuid4(), 'id' => $row[0]]);
         }
     }
 

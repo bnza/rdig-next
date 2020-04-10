@@ -6,7 +6,6 @@ use App\Service\Helper\MysqlCli\MysqlCliConnectionParametersFormatter;
 
 class MysqlCliConnectionParametersFormatterTest extends \PHPUnit\Framework\TestCase
 {
-
     public function dataProvider(): array
     {
         return [
@@ -17,14 +16,11 @@ class MysqlCliConnectionParametersFormatterTest extends \PHPUnit\Framework\TestC
 
     /**
      * @dataProvider dataProvider
-     * @param string $expected
-     * @param string $databaseUrl
      */
     public function testMethodFormat(
         string $expected,
         string $databaseUrl
-    )
-    {
+    ) {
         $formatter = new MysqlCliConnectionParametersFormatter($databaseUrl);
         $this->assertEquals($expected, $formatter->format());
     }

@@ -3,13 +3,12 @@
 namespace App\Tests\Functional\Service\Helper\MysqlCli;
 
 use App\Service\Helper\MysqlCli\MysqlCliConnectionParametersFormatter;
-use App\Service\Helper\MysqlCli\MysqlCliExecutor;
 use App\Service\Helper\MysqlCli\MysqlCliDumpRestorer;
+use App\Service\Helper\MysqlCli\MysqlCliExecutor;
 use App\Tests\Helper\TestFileLocator;
 
 class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
 {
-
     const DB_PREFIX = 'test_rdig_next_';
     /**
      * @var string
@@ -24,7 +23,7 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass()
     {
         $dbUrl = $_ENV['DATABASE_URL'];
-        self::$dbBaseUrl = preg_replace( '/([^\/])+$/','',$dbUrl,1);
+        self::$dbBaseUrl = preg_replace('/([^\/])+$/', '', $dbUrl, 1);
     }
 
     public static function tearDownAfterClass()
@@ -49,15 +48,15 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
         $executor = self::getExecutor(self::getDbUrl());
         $restorer = new MysqlCliDumpRestorer($executor);
         $restorer->execute($dump);
-        $sql = "SHOW TABLES;";
-        $output = $executor->execute(['-e'=>$sql, '-s' => null, '-r'=>null]);
+        $sql = 'SHOW TABLES;';
+        $output = $executor->execute(['-e' => $sql, '-s' => null, '-r' => null]);
         $this->assertCount(2, $output);
         $this->assertEquals('test_table', $output[1]);
     }
 
     private function generateDatabaseName(): string
     {
-        return $this::DB_PREFIX.substr(md5(rand()),0,8);
+        return $this::DB_PREFIX.substr(md5(rand()), 0, 8);
     }
 
     private static function getDbUrl(): string
@@ -70,8 +69,8 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
         if (!self::$dbName) {
             return;
         }
-        $sql = "DROP DATABASE IF EXISTS " . self::$dbName;
-        self::getExecutor(self::$dbBaseUrl)->execute(['-e'=>$sql]);
+        $sql = 'DROP DATABASE IF EXISTS '.self::$dbName;
+        self::getExecutor(self::$dbBaseUrl)->execute(['-e' => $sql]);
     }
 
     private static function createDatabase()
@@ -79,13 +78,14 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
         if (!self::$dbName) {
             return;
         }
-        $sql = "CREATE DATABASE " . self::$dbName;
-        self::getExecutor(self::$dbBaseUrl)->execute(['-e'=>$sql]);
+        $sql = 'CREATE DATABASE '.self::$dbName;
+        self::getExecutor(self::$dbBaseUrl)->execute(['-e' => $sql]);
     }
 
     private static function getExecutor(string $dbUrl): MysqlCliExecutor
     {
         $formatter = new MysqlCliConnectionParametersFormatter($dbUrl);
+
         return new MysqlCliExecutor($formatter);
     }
 }

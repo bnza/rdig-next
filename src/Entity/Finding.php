@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
@@ -12,7 +12,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class Finding implements SiteRelateEntityInterface
 {
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * @ORM\Column(type="integer")
@@ -22,8 +24,8 @@ class Finding implements SiteRelateEntityInterface
     private $id;
 
     /**
-     * @var Bucket
-     * Many Buckets have One Campaign.
+     * @var bucket
+     *             Many Buckets have One Campaign
      * @ORM\ManyToOne(targetEntity="Bucket", inversedBy="findings")
      * @ORM\JoinColumn(name="bucket", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
@@ -56,9 +58,6 @@ class Finding implements SiteRelateEntityInterface
      */
     private $group;
 
-    /**
-     * @return VocFChronology
-     */
     public function getChronology(): VocFChronology
     {
         return $this->chronology;
@@ -88,25 +87,16 @@ class Finding implements SiteRelateEntityInterface
         return $this->num;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return Bucket
-     */
     public function getBucket(): Bucket
     {
         return $this->bucket;
     }
 
-    /**
-     * @return string
-     */
     public function getGroup(): string
     {
         return $this->group;
@@ -120,10 +110,6 @@ class Finding implements SiteRelateEntityInterface
         $this->group = $group;
     }
 
-
-    /**
-     * @return int
-     */
     public function getSiteId(): int
     {
         return $this->bucket->getSiteId();
@@ -132,8 +118,7 @@ class Finding implements SiteRelateEntityInterface
     public function toArray(bool $ancestors = true, bool $descendants = false)
     {
         return [
-            'id' => '@TODO'
+            'id' => '@TODO',
         ];
     }
-
 }

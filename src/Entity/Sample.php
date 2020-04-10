@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: petrux
  * Date: 04/05/18
- * Time: 9.15
+ * Time: 9.15.
  */
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Table(name="sample", uniqueConstraints={
@@ -36,7 +35,7 @@ class Sample extends AbstractFinding
     private $campaign;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="integer", nullable=true)
      */
     private $no;
@@ -54,41 +53,26 @@ class Sample extends AbstractFinding
      */
     private $type;
 
-    /**
-     * @return Campaign
-     */
     public function getCampaign(): Campaign
     {
         return $this->campaign;
     }
 
-    /**
-     * @param Campaign $campaign
-     */
     public function setCampaign(Campaign $campaign): void
     {
         $this->campaign = $campaign;
     }
 
-    /**
-     * @return int
-     */
     public function getNo(): int
     {
         return $this->no;
     }
 
-    /**
-     * @param int $no
-     */
     public function setNo(int $no): void
     {
         $this->no = $no;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
@@ -102,26 +86,20 @@ class Sample extends AbstractFinding
         $this->status = $status;
     }
 
-    /**
-     * @return VocSType
-     */
     public function getType(): VocSType
     {
         return $this->type;
     }
 
-    /**
-     * @param VocSType $type
-     */
     public function setType(VocSType $type): void
     {
         $this->type = $type;
     }
 
     /**
-     * Override site using the bucket one
+     * Override site using the bucket one.
+     *
      * @ORM\PrePersist
-     * @param LifecycleEventArgs $event
      */
     public function setCampaignByBucket(LifecycleEventArgs $event)
     {
@@ -130,5 +108,4 @@ class Sample extends AbstractFinding
             $this->campaign = $finding->getBucket()->getCampaign();
         }
     }
-
 }

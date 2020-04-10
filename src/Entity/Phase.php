@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -30,8 +29,8 @@ class Phase implements SiteRelateEntityInterface
     private $id;
 
     /**
-     * @var Site
-     * Many Areas have One Site.
+     * @var site
+     *           Many Areas have One Site
      * @ORM\ManyToOne(targetEntity="Site", inversedBy="phases")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
@@ -45,17 +44,16 @@ class Phase implements SiteRelateEntityInterface
 
     /**
      * One Site has Many Areas.
+     *
      * @ORM\OneToMany(targetEntity="Context", mappedBy="phase")
      */
     private $contexts;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->buckets = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -85,17 +83,11 @@ class Phase implements SiteRelateEntityInterface
         $this->site = $site;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -110,7 +102,6 @@ class Phase implements SiteRelateEntityInterface
     }
 
     /**
-     * @param Context $context
      * @throws \Exception
      */
     public function addContext(Context $context)
@@ -132,7 +123,7 @@ class Phase implements SiteRelateEntityInterface
         ];
 
         if ($ancestors) {
-            $data['site'] =  $this->site->toArray();
+            $data['site'] = $this->site->toArray();
         }
 
         return $data;
@@ -144,7 +135,7 @@ class Phase implements SiteRelateEntityInterface
         if ($this->getSite()) {
             $siteCode = $this->getSite()->getCode() ? $this->getSite()->getCode() : $siteCode;
         }
+
         return "$siteCode.{$this->getName()}";
     }
-
 }

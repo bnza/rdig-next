@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -38,7 +38,7 @@ class Context implements SiteRelateEntityInterface
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=1, nullable=false, options={"fixed" = true})
      */
-    private $type = "F";
+    private $type = 'F';
 
     /**
      * @var int
@@ -54,24 +54,24 @@ class Context implements SiteRelateEntityInterface
     private $num = 0;
 
     /**
-     * @var Site
-     * Many Context have One Site.
+     * @var site
+     *           Many Context have One Site
      * @ORM\ManyToOne(targetEntity="Site", inversedBy="contexts")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
     private $site;
 
     /**
-     * @var Area
-     * Many Context have One Site.
+     * @var area
+     *           Many Context have One Site
      * @ORM\ManyToOne(targetEntity="Area", inversedBy="contexts")
      * @ORM\JoinColumn(name="area", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
     private $area;
 
     /**
-     * @var Phase
-     * Many Context have One Site.
+     * @var phase
+     *            Many Context have One Site
      * @ORM\ManyToOne(targetEntity="Phase", inversedBy="contexts")
      * @ORM\JoinColumn(name="phase", referencedColumnName="id", nullable=true, onDelete="NO ACTION")
      */
@@ -86,6 +86,7 @@ class Context implements SiteRelateEntityInterface
 
     /**
      * One Site has Many Areas.
+     *
      * @ORM\OneToMany(targetEntity="Bucket", mappedBy="context")
      */
     private $buckets;
@@ -101,9 +102,6 @@ class Context implements SiteRelateEntityInterface
         $this->buckets = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -149,7 +147,7 @@ class Context implements SiteRelateEntityInterface
         if (!$cType) {
             $cType = null;
         } else {
-            $cType = (int)$cType;
+            $cType = (int) $cType;
         }
         $this->cType = $cType;
     }
@@ -218,9 +216,6 @@ class Context implements SiteRelateEntityInterface
         return $this->buckets;
     }
 
-    /**
-     * @param Bucket $bucket
-     */
     public function addBuckets(Bucket $bucket)
     {
         $this->buckets[] = $bucket;
@@ -228,7 +223,6 @@ class Context implements SiteRelateEntityInterface
     }
 
     /**
-     * @param Area $area
      * @throws \Exception
      */
     public function setArea(Area $area): void
@@ -284,9 +278,6 @@ class Context implements SiteRelateEntityInterface
         return $this->site;
     }
 
-    /**
-     * @param Site $site
-     */
     public function setSite(Site $site): void
     {
         $this->site = $site;
@@ -308,6 +299,5 @@ class Context implements SiteRelateEntityInterface
             $num = $repo->getMaxSiteContextNum($context->getSite()->getId()) + 1;
             $context->setNum($num);
         }
-
     }
 }

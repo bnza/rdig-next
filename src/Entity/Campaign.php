@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -31,8 +31,8 @@ class Campaign implements SiteRelateEntityInterface
     private $id;
 
     /**
-     * @var Site
-     * Many Areas have One Site.
+     * @var site
+     *           Many Areas have One Site
      * @ORM\ManyToOne(targetEntity="Site", inversedBy="campaigns")
      * @ORM\JoinColumn(name="site", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
      */
@@ -55,17 +55,16 @@ class Campaign implements SiteRelateEntityInterface
 
     /**
      * One Site has Many Areas.
+     *
      * @ORM\OneToMany(targetEntity="Bucket", mappedBy="campaign")
      */
     private $buckets;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->buckets = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
@@ -95,9 +94,6 @@ class Campaign implements SiteRelateEntityInterface
         $this->site = $site;
     }
 
-    /**
-     * @return int
-     */
     public function getYear(): int
     {
         return $this->year;
@@ -111,18 +107,12 @@ class Campaign implements SiteRelateEntityInterface
         return $this->buckets;
     }
 
-    /**
-     * @param Bucket $bucket
-     */
     public function addBucket(Bucket $bucket)
     {
         $this->buckets[] = $bucket;
         $bucket->setCampaign($this);
     }
 
-    /**
-     * @param int $year
-     */
     public function setYear(int $year): void
     {
         $this->year = $year;
@@ -141,7 +131,7 @@ class Campaign implements SiteRelateEntityInterface
         ];
 
         if ($ancestors) {
-            $data['site'] =  $this->site->toArray();
+            $data['site'] = $this->site->toArray();
         }
 
         return $data;
@@ -155,7 +145,7 @@ class Campaign implements SiteRelateEntityInterface
         }
         $campaignYear = $this->getYear() ? $this->getYear() : '0000';
         $campaignYear = substr($campaignYear, -2);
+
         return "$siteCode.$campaignYear";
     }
-
 }
