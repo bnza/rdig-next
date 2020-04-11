@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -55,6 +56,7 @@ class Site implements SiteRelateEntityInterface
      * @var area[]
      *             One Site has Many Areas
      * @ORM\OneToMany(targetEntity="Area", mappedBy="site")
+     * @ApiSubresource
      */
     private $areas;
 
