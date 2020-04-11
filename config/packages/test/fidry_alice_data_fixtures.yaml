@@ -1,0 +1,2 @@
+imports:
+    - { resource: ../dev/fidry_alice_data_fixtures.yaml }

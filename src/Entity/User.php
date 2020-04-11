@@ -82,6 +82,11 @@ class User implements UserInterface, \Serializable
         return $this->uuid;
     }
 
+    public function setUuid(string $uuid): void
+    {
+        $this->uuid = $uuid;
+    }
+
     /**
      * @return array
      */

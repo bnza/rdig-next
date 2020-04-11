@@ -1,0 +1,5 @@
+\App\Entity\User:
+    user0:
+        uuid: <uuid4()>
+        username: 'theUser'
+        password: <encode(@user0, 'thePassword')>
