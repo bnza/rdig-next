@@ -1,0 +1,22 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\SiteEntity" table="site">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="code" column="code" type="string" length="2" nullable="false" unique="true">
+            <options>
+                <option name="fixed">1</option>
+            </options>
+        </field>
+        <field name="name" column="name" type="string" length="64" nullable="false" unique="true" />
+        <one-to-many field="areas" target-entity="AreaEntity" mapped-by="site" />
+        <one-to-many field="campaigns" target-entity="CampaignEntity" mapped-by="site" />
+        <one-to-many field="contexts" target-entity="ContextEntity" mapped-by="site" />
+        <one-to-many field="phases" target-entity="PhaseEntity" mapped-by="site" />
+        <one-to-many field="allowedUsers" target-entity="UsersSitesJoinEntity" mapped-by="site" />
+    </entity>
+</doctrine-mapping>

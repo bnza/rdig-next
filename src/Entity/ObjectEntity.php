@@ -4,30 +4,20 @@ namespace App\Entity;
 
 use App\Exceptions\CrudException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="object", uniqueConstraints={
- *      @ORM\UniqueConstraint(columns={"campaign", "no", "duplicate"})
- * })
- *
  * @UniqueEntity(
  *      fields={"campaign", "no", "duplicate"},
  *      errorPath="no",
  *      message="Duplicate registration number [{{ value }}] for this campaign"
  * )
- *
- * @ORM\HasLifecycleCallbacks()
  */
-class ObjectEntity extends AbstractFinding
+class ObjectEntity extends FindingEntity
 {
     /**
-     * @var Campaign
-     * @ORM\ManyToOne(targetEntity="Campaign")
-     * @ORM\JoinColumn(name="campaign", referencedColumnName="id", nullable=false, onDelete="NO ACTION")
+     * @var CampaignEntity
      */
     private $campaign;
 
@@ -35,229 +25,182 @@ class ObjectEntity extends AbstractFinding
      * Registration number.
      *
      * @var int
-     * @ORM\Column(type="integer", nullable=true)
      */
     private $no;
 
     /**
-     * @ORM\Column(
-     *      type="string",
-     *      length=1,
-     *      nullable=true,
-     *      options={
-     *     "fixed" = true
-     *     })
+     * @var string
      */
     private $duplicate;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $height;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $length;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $width;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $thickness;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $diameter;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $perforationDiameter;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $weight;
 
     /**
-     * @var VocOClass
-     * @ORM\ManyToOne(targetEntity="VocOClass")
-     * @ORM\JoinColumn(name="class", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOClassEntity
      */
     private $class;
 
     /**
-     * @var VocOMaterialClass
-     * @ORM\ManyToOne(targetEntity="VocOMaterialClass")
-     * @ORM\JoinColumn(name="material_class", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOMaterialClassEntity
      */
     private $materialClass;
 
     /**
-     * @var VocOMaterialType
-     * @ORM\ManyToOne(targetEntity="VocOMaterialType")
-     * @ORM\JoinColumn(name="material_type", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOMaterialTypeEntity
      */
     private $materialType;
 
     /**
-     * @var VocOTechnique
-     * @ORM\ManyToOne(targetEntity="VocOTechnique")
-     * @ORM\JoinColumn(name="technique", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOTechniqueEntity
      */
     private $technique;
 
     /**
-     * @var VocOType
-     * @ORM\ManyToOne(targetEntity="VocOType")
-     * @ORM\JoinColumn(name="type", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOTypeEntity
      */
     private $type;
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
-     * @ORM\JoinColumn(name="sub_type", referencedColumnName="id", onDelete="NO ACTION")
      */
     private $subType;
 
     /**
-     * @var VocFColor
-     * @ORM\ManyToOne(targetEntity="VocFColor")
-     * @ORM\JoinColumn(name="color", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocFColorEntity
      */
     private $color;
 
     /**
-     * @var VocOPreservation
-     * @ORM\ManyToOne(targetEntity="VocOPreservation")
-     * @ORM\JoinColumn(name="preservation", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocOPreservationEntity
      */
     private $preservation;
 
     /**
-     * @var VocODecoration
-     * @ORM\ManyToOne(targetEntity="VocODecoration")
-     * @ORM\JoinColumn(name="decoration", referencedColumnName="id", onDelete="NO ACTION")
+     * @var VocODecorationEntity
      */
     private $decoration;
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="date", nullable=true)
      */
     private $retrievalDate;
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
      */
     private $inscription;
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @var int
      * @Assert\Range(
      *     min = 2000,
      *     max = 2099,
-     *     minMessage = "Campaign's year lower limit is {{ limit }}",
-     *     maxMessage = "Campaign's year upper limit is {{ limit }}"
+     *     minMessage = "CampaignEntity's year lower limit is {{ limit }}",
+     *     maxMessage = "CampaignEntity's year upper limit is {{ limit }}"
      * )
-     * @ORM\Column(
-     *     type="smallint",
-     *     nullable=true
-     *     )
      */
     private $conservationYear;
 
     /**
      * @var int
      * @Assert\Type("integer")
-     * @ORM\Column(type="integer", nullable=true)
      */
     private $fragments;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $coordN;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $coordE;
 
     /**
      * @var float
      * @Assert\Type("float")
-     * @ORM\Column(type="float", nullable=true)
      */
     private $coordZ;
 
     /**
      * @var string
-     * @ORM\Column(type="string", nullable=true)
      */
     private $location;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
      */
     private $drawing;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
      */
     private $photo;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
      */
     private $envanterlik;
 
     /**
      * @var bool
-     * @ORM\Column(type="boolean", nullable=true)
      */
     private $etutluk;
 
-    public function getCampaign(): Campaign
+    public function getCampaign(): CampaignEntity
     {
         return $this->campaign;
     }
 
-    public function setCampaign(Campaign $campaign): void
+    public function setCampaign(CampaignEntity $campaign): void
     {
         $this->campaign = $campaign;
     }
@@ -515,67 +458,67 @@ class ObjectEntity extends AbstractFinding
         $this->weight = $this->castNumeric($weight, 'float');
     }
 
-    public function getClass(): VocOClass
+    public function getClass(): VocOClassEntity
     {
         return $this->class;
     }
 
     /**
-     * @param VocOClass $class
+     * @param VocOClassEntity $class
      */
-    public function setClass(VocOClass $class = null): void
+    public function setClass(VocOClassEntity $class = null): void
     {
         $this->class = $class;
     }
 
-    public function getMaterialClass(): VocOMaterialClass
+    public function getMaterialClass(): VocOMaterialClassEntity
     {
         return $this->materialClass;
     }
 
     /**
-     * @param VocOMaterialClass $materialClass
+     * @param VocOMaterialClassEntity $materialClass
      */
-    public function setMaterialClass(VocOMaterialClass $materialClass = null): void
+    public function setMaterialClass(VocOMaterialClassEntity $materialClass = null): void
     {
         $this->materialClass = $materialClass;
     }
 
-    public function getMaterialType(): VocOMaterialType
+    public function getMaterialType(): VocOMaterialTypeEntity
     {
         return $this->materialType;
     }
 
     /**
-     * @param VocOMaterialType $materialType
+     * @param VocOMaterialTypeEntity $materialType
      */
-    public function setMaterialType(VocOMaterialType $materialType = null): void
+    public function setMaterialType(VocOMaterialTypeEntity $materialType = null): void
     {
         $this->materialType = $materialType;
     }
 
-    public function getTechnique(): VocOTechnique
+    public function getTechnique(): VocOTechniqueEntity
     {
         return $this->technique;
     }
 
     /**
-     * @param VocOTechnique $technique
+     * @param VocOTechniqueEntity $technique
      */
-    public function setTechnique(VocOTechnique $technique = null): void
+    public function setTechnique(VocOTechniqueEntity $technique = null): void
     {
         $this->technique = $technique;
     }
 
-    public function getType(): VocOType
+    public function getType(): VocOTypeEntity
     {
         return $this->type;
     }
 
     /**
-     * @param VocOType $type
+     * @param VocOTypeEntity $type
      */
-    public function setType(VocOType $type = null): void
+    public function setType(VocOTypeEntity $type = null): void
     {
         $this->type = $type;
     }
@@ -593,28 +536,28 @@ class ObjectEntity extends AbstractFinding
         $this->subType = $subType;
     }
 
-    public function getColor(): VocFColor
+    public function getColor(): VocFColorEntity
     {
         return $this->color;
     }
 
     /**
-     * @param VocFColor $color
+     * @param VocFColorEntity $color
      */
-    public function setColor(VocFColor $color = null): void
+    public function setColor(VocFColorEntity $color = null): void
     {
         $this->color = $color;
     }
 
-    public function getPreservation(): VocOPreservation
+    public function getPreservation(): VocOPreservationEntity
     {
         return $this->preservation;
     }
 
     /**
-     * @param VocOPreservation $preservation
+     * @param VocOPreservationEntity $preservation
      */
-    public function setPreservation(VocOPreservation $preservation = null): void
+    public function setPreservation(VocOPreservationEntity $preservation = null): void
     {
         $this->preservation = $preservation;
     }
@@ -682,24 +625,19 @@ class ObjectEntity extends AbstractFinding
         $this->description = $description;
     }
 
-    public function getDecoration(): VocODecoration
+    public function getDecoration(): VocODecorationEntity
     {
         return $this->decoration;
     }
 
     /**
-     * @param VocODecoration $decoration
+     * @param VocODecorationEntity $decoration
      */
-    public function setDecoration(VocODecoration $decoration = null): void
+    public function setDecoration(VocODecorationEntity $decoration = null): void
     {
         $this->decoration = $decoration;
     }
 
-    /**
-     * Override site using the bucket one.
-     *
-     * @ORM\PrePersist
-     */
     public function setCampaignByBucket(LifecycleEventArgs $event)
     {
         if (!isset($this->campaign)) {

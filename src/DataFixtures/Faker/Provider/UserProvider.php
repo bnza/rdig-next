@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\Faker\Provider;
 
-use App\Entity\User;
+use App\Entity\UserEntity;
 use Faker\Generator;
 use Faker\Provider\Base as BaseProvider;
 use Ramsey\Uuid\Uuid;
@@ -26,7 +26,7 @@ final class UserProvider extends BaseProvider
         return Uuid::uuid4();
     }
 
-    public function encode(User $user, string $password): string
+    public function encode(UserEntity $user, string $password): string
     {
         return $this->encoder->encodePassword($user, $password);
     }

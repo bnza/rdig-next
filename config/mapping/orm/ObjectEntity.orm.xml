@@ -1,0 +1,65 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\ObjectEntity" table="object">
+        <unique-constraints>
+            <unique-constraint columns="campaign,no,duplicate" />
+        </unique-constraints>
+        <field name="no" type="integer" nullable="true"/>
+        <field name="duplicate" type="string" length="1" nullable="true">
+            <options>
+                <option name="fixed">1</option>
+            </options>
+        </field>
+        <field name="length" type="float" nullable="true"/>
+        <field name="height" type="float" nullable="true"/>
+        <field name="width" type="float" nullable="true"/>
+        <field name="thickness" type="float" nullable="true"/>
+        <field name="diameter" type="float" nullable="true"/>
+        <field name="perforationDiameter" type="float" nullable="true"/>
+        <field name="weight" type="float" nullable="true"/>
+        <field name="retrievalDate" type="date" nullable="true"/>
+        <field name="inscription" type="string" nullable="true"/>
+        <field name="description" type="text" nullable="true"/>
+        <field name="conservationYear" type="smallint" nullable="true"/>
+        <field name="fragments" type="smallint" nullable="true"/>
+        <field name="coordN" type="float" nullable="true"/>
+        <field name="coordE" type="float" nullable="true"/>
+        <field name="coordZ" type="float" nullable="true"/>
+        <field name="location" type="string" nullable="true"/>
+        <field name="drawing" type="boolean" nullable="true"/>
+        <field name="photo" type="boolean" nullable="true"/>
+        <field name="envanterlik" type="boolean" nullable="true"/>
+        <field name="etutluk" type="boolean" nullable="true"/>
+        <field name="subType" type="string" nullable="true"/>
+        <many-to-one field="campaign" target-entity="CampaignEntity" >
+            <join-column name="campaign" referenced-column-name="id" on-delete="RESTRICT" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="class" target-entity="VocOClassEntity" >
+            <join-column name="class" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="materialClass" target-entity="VocOMaterialClassEntity" >
+            <join-column name="material_class" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="materialType" target-entity="VocOMaterialTypeEntity" >
+            <join-column name="material_type" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="technique" target-entity="VocOTechniqueEntity" >
+            <join-column name="technique" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="type" target-entity="VocOTypeEntity" >
+            <join-column name="type" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="color" target-entity="VocFColorEntity" >
+            <join-column name="color" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="preservation" target-entity="VocOPreservationEntity" >
+            <join-column name="preservation" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="decoration" target-entity="VocODecorationEntity" >
+            <join-column name="decoration" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

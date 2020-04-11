@@ -1,0 +1,22 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\UsersSitesJoinEntity" table="users_allowed_sites">
+        <unique-constraints>
+            <unique-constraint columns="user_uuid,site_id" />
+        </unique-constraints>
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <many-to-one field="site" target-entity="SiteEntity" inversed-by="allowedUsers">
+            <cascade><cascade-remove /></cascade>
+            <join-column name="site_id" referenced-column-name="id" on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="user" target-entity="UserEntity" inversed-by="allowedSites">
+            <cascade><cascade-remove /></cascade>
+            <join-column name="user_uuid" referenced-column-name="uuid" on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

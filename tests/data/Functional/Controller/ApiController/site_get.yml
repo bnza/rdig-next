@@ -1,4 +1,4 @@
-\App\Entity\Site:
+\App\Entity\SiteEntity:
     site{1..10}:
         code (unique): '<regexify("[A-Z]{2}")>'
         name: '<sentence(3,true)>'

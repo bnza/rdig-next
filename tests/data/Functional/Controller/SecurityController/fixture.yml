@@ -1,4 +1,4 @@
-\App\Entity\User:
+\App\Entity\UserEntity:
     user0:
         uuid: <uuid4()>
         username: 'theUser'

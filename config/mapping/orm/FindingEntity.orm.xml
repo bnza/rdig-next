@@ -1,0 +1,29 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\FindingEntity" table="finding" inheritance-type="JOINED">
+        <discriminator-column name="discr" type="string" length="1" />
+        <discriminator-map>
+            <discriminator-mapping value="F" class="App\Entity\FindingEntity" />
+            <discriminator-mapping value="O" class="App\Entity\ObjectEntity" />
+            <discriminator-mapping value="P" class="App\Entity\PotteryEntity" />
+            <discriminator-mapping value="S" class="App\Entity\SampleEntity" />
+        </discriminator-map>
+        <unique-constraints>
+            <unique-constraint columns="bucket,discr,num" />
+        </unique-constraints>
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="num" column="num" type="string" length="4" nullable="false" />
+        <field name="remarks" type="text" nullable="true"/>
+        <many-to-one field="bucket" target-entity="BucketEntity" inversed-by="findings">
+            <join-column name="bucket" referenced-column-name="id" on-delete="RESTRICT" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="chronology" target-entity="VocFChronologyEntity" >
+            <join-column name="chronology" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

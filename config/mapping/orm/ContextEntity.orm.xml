@@ -1,0 +1,43 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\ContextEntity" table="context">
+        <unique-constraints>
+            <unique-constraint columns="num,site" />
+        </unique-constraints>
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="type" column="type" type="string" length="1" nullable="false">
+            <options>
+                <option name="fixed">1</option>
+            </options>
+        </field>
+        <field name="cType" column="c_type" type="smallint" nullable="true" >
+            <options>
+                <option name="unsigned">1</option>
+            </options>
+        </field>
+        <field name="num" column="num" type="integer" nullable="false" >
+            <options>
+                <option name="unsigned">1</option>
+            </options>
+        </field>
+        <field name="description" column="description" type="text" nullable="true" />
+        <many-to-one field="site" target-entity="SiteEntity" inversed-by="contexts">
+            <join-column name="site" referenced-column-name="id" on-delete="RESTRICT" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="area" target-entity="AreaEntity" inversed-by="contexts">
+            <join-column name="area" referenced-column-name="id" on-delete="RESTRICT" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="phase" target-entity="PhaseEntity" inversed-by="contexts">
+            <join-column name="phase" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <many-to-one field="chronology" target-entity="VocFChronologyEntity" >
+            <join-column name="chronology" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+        <one-to-many field="buckets" target-entity="BucketEntity" mapped-by="context" />
+    </entity>
+</doctrine-mapping>

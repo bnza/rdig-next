@@ -1,0 +1,19 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\SampleEntity" table="sample">
+        <unique-constraints>
+            <unique-constraint columns="campaign,no" />
+        </unique-constraints>
+        <field name="no" type="integer" nullable="true"/>
+        <field name="status" type="string" nullable="true"/>
+        <many-to-one field="campaign" target-entity="CampaignEntity" >
+            <join-column name="campaign" referenced-column-name="id" on-delete="RESTRICT" nullable="false"/>
+        </many-to-one>
+        <many-to-one field="type" target-entity="VocSTypeEntity" >
+            <join-column name="type" referenced-column-name="id" on-delete="RESTRICT" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

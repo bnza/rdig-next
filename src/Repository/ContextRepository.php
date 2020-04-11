@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Context;
+use App\Entity\ContextEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Context|null find($id, $lockMode = null, $lockVersion = null)
- * @method Context|null findOneBy(array $criteria, array $orderBy = null)
- * @method Context[]    findAll()
- * @method Context[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ContextEntity|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ContextEntity|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ContextEntity[]    findAll()
+ * @method ContextEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ContextRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Context::class);
+        parent::__construct($registry, ContextEntity::class);
     }
 
     // /**

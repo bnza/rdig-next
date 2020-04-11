@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Site;
+use App\Entity\SiteEntity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Site|null find($id, $lockMode = null, $lockVersion = null)
- * @method Site|null findOneBy(array $criteria, array $orderBy = null)
- * @method Site[]    findAll()
- * @method Site[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method SiteEntity|null find($id, $lockMode = null, $lockVersion = null)
+ * @method SiteEntity|null findOneBy(array $criteria, array $orderBy = null)
+ * @method SiteEntity[]    findAll()
+ * @method SiteEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class SiteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Site::class);
+        parent::__construct($registry, SiteEntity::class);
     }
 
     // /**
