@@ -18,7 +18,7 @@ class TestFileLocator
         return self::$projectRoot;
     }
 
-    public static function classToTestDataPath(string $class, ?string $testMode = self::TEST_MODE_UNIT, ?string $dataFile = ''): string
+    public static function classToTestDataPath(string $class, ?string $dataFile = '', ?string $testMode = self::TEST_MODE_FUNCTIONAL): string
     {
         $pieces = array_slice(explode('\\', $class), 1);
         $pieces = array_merge(['tests', 'data', ucfirst(strtolower($testMode))], $pieces);

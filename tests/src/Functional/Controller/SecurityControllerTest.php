@@ -2,44 +2,32 @@
 
 namespace App\Tests\Functional\Controller;
 
-use App\Tests\Helper\TestFileLocator;
-use Nelmio\Alice\Loader\NativeLoader;
+use App\Tests\Helper\TestFixturesLoaderTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
-    /**
-     * @var NativeLoader
-     */
-    private $loader;
+    use TestFixturesLoaderTrait;
 
-    public function setUp()
+    public function testLoginCheckPostRoute()
     {
-        $this->loader = new NativeLoader();
-    }
-
-    public function testShowPost()
-    {
-        $fixtures = TestFileLocator::classToTestDataPath(
-            'App\\Controller\\SecurityController',
-            TestFileLocator::TEST_MODE_FUNCTIONAL,
-            'fixture.yml'
+        $this->loadFixtures([
+                [
+                    'App\\Controller\\SecurityController',
+                    'fixture.yml',
+                ],
+            ]
         );
 
-        $client = static::createClient();
-
-        $loader = $client->getContainer()->get('fidry_alice_data_fixtures.loader.doctrine');
-        $loader->load([$fixtures]);
-
-        $client->request(
+        $this->getBrowser()->request(
             'POST',
             '/api/login_check',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
             '{"username":"theUser","password":"thePassword"}'
-            );
+        );
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->getBrowser()->getResponse()->getStatusCode());
     }
 }

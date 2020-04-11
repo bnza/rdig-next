@@ -22,6 +22,7 @@ security:
 
         api:
             pattern:   ^/api
+            methods: [POST, DELETE, PUT, PATCH]
             stateless: true
             guard:
                 authenticators:
@@ -32,6 +33,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

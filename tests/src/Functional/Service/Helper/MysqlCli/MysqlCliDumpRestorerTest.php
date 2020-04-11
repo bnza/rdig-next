@@ -42,7 +42,6 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
     {
         $dump = TestFileLocator::classToTestDataPath(
             MysqlCliDumpRestorer::class,
-            TestFileLocator::TEST_MODE_FUNCTIONAL,
             'dump.sql'
         );
         $executor = self::getExecutor(self::getDbUrl());
