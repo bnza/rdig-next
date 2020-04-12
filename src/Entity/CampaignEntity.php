@@ -5,8 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -14,11 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     description="Archaeological campaign",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
- * )
- * @UniqueEntity(
- *      fields={"site", "year"},
- *      errorPath="year",
- *      message="Duplicate campaign year [{{ value }}] for this site"
  * )
  */
 class CampaignEntity implements SiteRelateEntityInterface
@@ -35,13 +28,6 @@ class CampaignEntity implements SiteRelateEntityInterface
 
     /**
      * @var int
-     * @Assert\NotBlank()
-     * @Assert\Range(
-     *     min = 2000,
-     *     max = 2099,
-     *     minMessage = "CampaignEntity's year lower limit is {{ limit }}",
-     *     maxMessage = "CampaignEntity's year upper limit is {{ limit }}"
-     * )
      */
     private $year;
 

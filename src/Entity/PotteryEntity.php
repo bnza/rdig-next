@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
@@ -11,11 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     description="Pottery archaeological finding",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
- * )
- * @UniqueEntity(
- *      fields={"campaign", "no"},
- *      errorPath="no",
- *      message="Duplicate registration number [{{ value }}] for this campaign "
  * )
  */
 class PotteryEntity extends FindingEntity

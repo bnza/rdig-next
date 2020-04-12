@@ -2,18 +2,8 @@
 
 namespace App\Entity;
 
-use App\Exceptions\CrudException;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueEntity(
- *      fields={"campaign", "no", "duplicate"},
- *      errorPath="no",
- *      message="Duplicate registration number [{{ value }}] for this campaign"
- * )
- */
 class ObjectEntity extends FindingEntity
 {
     /**
@@ -35,43 +25,36 @@ class ObjectEntity extends FindingEntity
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $height;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $length;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $width;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $thickness;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $diameter;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $perforationDiameter;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $weight;
 
@@ -137,36 +120,26 @@ class ObjectEntity extends FindingEntity
 
     /**
      * @var int
-     * @Assert\Range(
-     *     min = 2000,
-     *     max = 2099,
-     *     minMessage = "CampaignEntity's year lower limit is {{ limit }}",
-     *     maxMessage = "CampaignEntity's year upper limit is {{ limit }}"
-     * )
      */
     private $conservationYear;
 
     /**
      * @var int
-     * @Assert\Type("integer")
      */
     private $fragments;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $coordN;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $coordE;
 
     /**
      * @var float
-     * @Assert\Type("float")
      */
     private $coordZ;
 

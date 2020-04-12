@@ -6,8 +6,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -15,11 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     description="Context's finding close group",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
- * )
- * @UniqueEntity(
- *      fields={"campaign", "num"},
- *      errorPath="num",
- *      message="Duplicate bucket number [{{ value }}] for this campaign"
  * )
  */
 class BucketEntity implements SiteRelateEntityInterface
@@ -41,14 +34,6 @@ class BucketEntity implements SiteRelateEntityInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^\d+\w?/")
-     * @Assert\Length(
-     *     min = 1,
-     *     max = 4,
-     *     maxMessage = "BucketEntity num must be at least {{ limit }} characters long",
-     *     maxMessage = "BucketEntity num cannot be longer than {{ limit }} characters"
-     *     )
      */
     private $num;
 

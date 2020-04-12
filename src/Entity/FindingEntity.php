@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -12,11 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     description="Generic archaeological finding",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
- * )
- * @UniqueEntity(
- *      fields={"bucket", "num"},
- *      errorPath="num",
- *      message="Duplicate field number [{{ value }}] for this finding type in this bucket "
  * )
  */
 class FindingEntity implements SiteRelateEntityInterface
@@ -33,13 +26,6 @@ class FindingEntity implements SiteRelateEntityInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     min = 1,
-     *     max = 4,
-     *     maxMessage = "BucketEntity num must be at least {{ limit }} characters long",
-     *     maxMessage = "BucketEntity num cannot be longer than {{ limit }} characters"
-     *     )
      */
     private $num;
 

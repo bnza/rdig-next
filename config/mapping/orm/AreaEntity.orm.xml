@@ -12,7 +12,7 @@
             <generator strategy="AUTO"/>
         </id>
         <field name="code" column="code" type="string" length="4" nullable="false" />
-        <field name="name" column="name" type="string" length="64" nullable="false" />
+        <field name="name" column="name" type="string" length="191" nullable="false" />
         <field name="location" column="location" type="string" length="255" nullable="true" />
         <many-to-one field="site" target-entity="SiteEntity" inversed-by="areas">
             <cascade><cascade-remove /></cascade>

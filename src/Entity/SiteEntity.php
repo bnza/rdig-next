@@ -5,8 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -15,10 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
  * )
- * @UniqueEntity(
- *      fields={"code"},
- *      message="Duplicate site code"
- * )
  */
 class SiteEntity implements SiteRelateEntityInterface
 {
@@ -26,25 +20,6 @@ class SiteEntity implements SiteRelateEntityInterface
      * @var int
      */
     private $id;
-
-    /**
-     * @var string
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 2
-     * )
-     * @Assert\NotBlank()
-     */
-    private $code;
-
-    /**
-     * @var string
-     * @Assert\Length(
-     *      max = 64
-     * )
-     * @Assert\NotBlank()
-     */
-    private $name;
 
     /**
      * @var UsersSitesJoinEntity[]
@@ -58,14 +33,24 @@ class SiteEntity implements SiteRelateEntityInterface
     private $areas;
 
     /**
+     * @var CampaignEntity[]
+     */
+    private $campaigns;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
      * @var ContextEntity[]
      */
     private $contexts;
 
     /**
-     * @var CampaignEntity[]
+     * @var string
      */
-    private $campaigns;
+    private $name;
 
     /**
      * @var PhaseEntity[]

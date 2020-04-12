@@ -5,8 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -14,14 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     description="Archaeological site area",
  *     collectionOperations={"get"},
  *     itemOperations={"get"}
- * )
- * @UniqueEntity(
- *      fields={"code", "site"},
- *      message="Duplicate area code for this site"
- * )
- * @UniqueEntity(
- *      fields={"name", "site"},
- *      message="Duplicate area name for this site"
  * )
  */
 class AreaEntity implements SiteRelateEntityInterface
@@ -33,27 +23,16 @@ class AreaEntity implements SiteRelateEntityInterface
 
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 4
-     * )
-     * @Assert\NotBlank()
      */
     private $code;
 
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 255
-     * )
-     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @var string
-     * @Assert\Length(
-     *      max = 255
-     * )
      */
     private $location;
 
@@ -164,6 +143,7 @@ class AreaEntity implements SiteRelateEntityInterface
     }
 
     /**
+     * @param ContextEntity $context
      * @throws \Exception
      */
     public function addContexts(ContextEntity $context)

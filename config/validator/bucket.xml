@@ -1,0 +1,35 @@
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="App\Entity\BucketEntity">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>campaign</value>
+                <value>num</value>
+            </option>
+            <option name="errorPath">num</option>
+            <option name="message">Duplicate bucket number year for this campaign: {{ value }}</option>
+        </constraint>
+        <property name="num">
+            <constraint name="NotBlank"/>
+            <constraint name="Regex">
+                <option name="pattern">/^\d+\w?/</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">1</option>
+                <option name="max">4</option>
+                <option name="minMessage">
+                    Bucket number must be at least {{ limit }} characters long
+                </option>
+                <option name="minMessage">
+                    Bucket number cannot be longer than {{ limit }} characters
+                </option>
+            </constraint>
+            <constraint name="Type">
+                <option name="type">string</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

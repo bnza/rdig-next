@@ -3,16 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @UniqueEntity(
- *      fields={"site", "name"},
- *      errorPath="name",
- *      message="Duplicate phase name [{{ value }}] for this site"
- * )
- */
 class PhaseEntity implements SiteRelateEntityInterface
 {
     /**
@@ -27,7 +18,6 @@ class PhaseEntity implements SiteRelateEntityInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
      */
     private $name;
 

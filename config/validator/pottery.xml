@@ -1,0 +1,16 @@
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="App\Entity\PotteryEntity">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>campaign</value>
+                <value>num</value>
+            </option>
+            <option name="errorPath">num</option>
+            <option name="message">Duplicate pottery registration number for this campaign: {{ value }}</option>
+        </constraint>
+    </class>
+</constraint-mapping>

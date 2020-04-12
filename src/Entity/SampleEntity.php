@@ -1,23 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * UserEntity: petrux
- * Date: 04/05/18
- * Time: 9.15.
- */
 
 namespace App\Entity;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @UniqueEntity(
- *      fields={"campaign", "no"},
- *      errorPath="no",
- *      message="Duplicate registration number [{{ value }}] for this campaign "
- * )
- */
 class SampleEntity extends FindingEntity
 {
     /**
