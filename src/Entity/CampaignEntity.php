@@ -3,12 +3,18 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     shortName="campaign",
+ *     description="Archaeological campaign",
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @UniqueEntity(
  *      fields={"site", "year"},
  *      errorPath="year",
@@ -41,6 +47,7 @@ class CampaignEntity implements SiteRelateEntityInterface
 
     /**
      * @var BucketEntity
+     * @ApiSubresource(maxDepth=1)
      */
     private $buckets;
 

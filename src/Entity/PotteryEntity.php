@@ -2,9 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ApiResource(
+ *     shortName="pottery",
+ *     description="Pottery archaeological finding",
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @UniqueEntity(
  *      fields={"campaign", "no"},
  *      errorPath="no",

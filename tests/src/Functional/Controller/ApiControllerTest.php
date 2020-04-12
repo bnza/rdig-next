@@ -22,7 +22,7 @@ class ApiControllerTest extends WebTestCase
 
         $this->getBrowser()->request(
             'GET',
-            '/api/site_entities?page=1',
+            '/api/sites?page=1',
             [],
             [],
             ['HTTP_ACCEPT' => 'application/ld+json']

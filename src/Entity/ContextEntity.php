@@ -3,13 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ *  @ApiResource(
+ *     shortName="context",
+ *     description="Archaeological site contexts (stratographc units)",
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @UniqueEntity(
  *      fields={"num", "site"},
  *      message="Duplicate context number for this site"
@@ -66,6 +72,7 @@ class ContextEntity implements SiteRelateEntityInterface
 
     /**
      * @var BucketEntity
+     * @ApiSubresource
      */
     private $buckets;
 

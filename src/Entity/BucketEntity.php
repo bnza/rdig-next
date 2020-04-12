@@ -3,13 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     shortName="bucket",
+ *     description="Context's finding close group",
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @UniqueEntity(
  *      fields={"campaign", "num"},
  *      errorPath="num",
@@ -53,6 +59,7 @@ class BucketEntity implements SiteRelateEntityInterface
 
     /**
      * @var FindingEntity
+     * @ApiSubresource
      */
     private $findings;
 

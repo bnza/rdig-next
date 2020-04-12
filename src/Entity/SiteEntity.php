@@ -2,17 +2,19 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
- * @ApiFilter(OrderFilter::class, properties={"id", "code", "name"}, arguments={"orderParameterName"="orderBy"})
+ * @ApiResource(
+ *     shortName="site",
+ *     description="Archaeological site",
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  * @UniqueEntity(
  *      fields={"code"},
  *      message="Duplicate site code"
@@ -51,6 +53,7 @@ class SiteEntity implements SiteRelateEntityInterface
 
     /**
      * @var AreaEntity[]
+     * @ApiSubresource(maxDepth=1)
      */
     private $areas;
 
