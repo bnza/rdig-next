@@ -2,15 +2,15 @@
 
 namespace App\Command;
 
-use App\Service\Helper\MysqlCli\MysqlCliDumpRestorer;
-use RuntimeException;
+use App\Service\Helper\MysqlCli\MysqlDumpCliExecutor;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SetupTestDatabaseCommand extends Command
+class DumpTestDatabaseSchemaCommand extends Command
 {
     /**
      * @var string
@@ -18,24 +18,25 @@ class SetupTestDatabaseCommand extends Command
     private $projectDir;
 
     /**
-     * @var MysqlCliDumpRestorer
+     * @var MysqlDumpCliExecutor
      */
-    private $restorer;
+    private $dumper;
 
-    protected static $defaultName = 'app:test:setup-db';
+    protected static $defaultName = 'app:test:dump-db-schema';
 
-    public function __construct(MysqlCliDumpRestorer $restorer, string $projectDir)
+    public function __construct(MysqlDumpCliExecutor $dumper, string $projectDir)
     {
         $this->projectDir = $projectDir;
-        $this->restorer = $restorer;
+        $this->dumper = $dumper;
         parent::__construct();
     }
 
     protected function configure()
     {
         $this
-            ->setDescription('Set up the test database')
-            ->addArgument('dump', InputArgument::OPTIONAL, 'The dump file name without extension', 'latest')
+            ->setDescription('Dump the test database schema')
+            ->addOption('destination', 'd', InputOption::VALUE_REQUIRED, 'The dump file destination directory. Relative paths are intended to be in app project dir', 'tests/data/Functional/Migrations')
+            ->addArgument('filename', InputArgument::OPTIONAL, 'The dump file name without extension', 'latest')
             ->setHelp(
                 'This command allows you to set up the test database dropping the old one and '.
                 'restore the whole schema from a chosen dump placed in test/data/Functional/Migration folder'
@@ -44,17 +45,13 @@ class SetupTestDatabaseCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ('test' !== $_ENV['APP_ENV']) {
-            throw new RuntimeException('This command should be only run in "test" environment');
+        $dest = $input->getOption('destination');
+        if (DIRECTORY_SEPARATOR !== $dest[0]) {
+            $dest = $this->projectDir.DIRECTORY_SEPARATOR.$dest;
         }
-
-        $this->dropDb($output);
-        $this->createDb($output);
-
-        $dumpFile = $this->projectDir.'/tests/data/Functional/Migrations/'.$input->getArgument('dump').'.sql';
-        $output->write("<info>Restoring database schema from dump <comment>$dumpFile</comment>:</info>");
-
-        $this->restorer->execute($dumpFile);
+        $dumpFile = $dest.DIRECTORY_SEPARATOR.$input->getArgument('filename').'.sql';
+        $output->write("<info>Dumping database schema to <comment>$dumpFile</comment>:</info>");
+        $this->dumper->execute(['--no-data' => ''], $dumpFile);
         $output->writeln(' <comment>done</comment>');
 
         return 0;

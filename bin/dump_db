@@ -1,8 +1,0 @@
-#!/bin/bash
-DUMPFILE=${1:-latest}
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "${DIR}/../" || exit;
-source .env.local
-mysqldump --no-data\
-  -h${DATABASE_HOST} -u"${DATABASE_USER}" -p"${DATABASE_PASSWORD}" -P"${DATABASE_PORT}"  "${DATABASE_NAME}"\
-  > tests/data/Functional/Migrations/"${DUMPFILE}".sql

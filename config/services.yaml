@@ -30,6 +30,10 @@ services:
 
     App\DataFixtures\Faker\Provider\UserProvider: ~
 
-    App\Service\Helper\MysqlCli\MysqlCliConnectionParametersFormatter:
+    App\Service\Helper\MysqlCli\MysqlCliExecutor:
+        arguments:
+            $databaseUrl: '%env(DATABASE_URL)%'
+
+    App\Service\Helper\MysqlCli\MysqlDumpCliExecutor:
         arguments:
             $databaseUrl: '%env(DATABASE_URL)%'

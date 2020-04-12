@@ -49,8 +49,8 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
         $restorer->execute($dump);
         $sql = 'SHOW TABLES;';
         $output = $executor->execute(['-e' => $sql, '-s' => null, '-r' => null]);
-        $this->assertCount(2, $output);
-        $this->assertEquals('test_table', $output[1]);
+        $this->assertCount(1, $output);
+        $this->assertEquals('test_table', $output[0]);
     }
 
     private function generateDatabaseName(): string
@@ -83,8 +83,6 @@ class MysqlCliDumpRestorerTest extends \PHPUnit\Framework\TestCase
 
     private static function getExecutor(string $dbUrl): MysqlCliExecutor
     {
-        $formatter = new MysqlCliConnectionParametersFormatter($dbUrl);
-
-        return new MysqlCliExecutor($formatter);
+        return new MysqlCliExecutor($dbUrl);
     }
 }

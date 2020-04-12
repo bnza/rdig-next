@@ -6,19 +6,25 @@ use App\Exception\MysqlCliException;
 
 abstract class AbstractMysqlCliExecutor
 {
+    const DEFAULT_EXTRA_FILE = '--defaults-extra-file';
     /**
-     * @var MysqlCliConnectionParametersFormatter
+     * @var string
      */
-    protected $formatter;
+    protected $databaseUrl;
+
+    /**
+     * @var MysqlCnfFileGenerator
+     */
+    private $cnfGenerator;
 
     abstract public function getCommandName(): string;
 
-    public function __construct(MysqlCliConnectionParametersFormatter $formatter)
+    public function __construct(string $databaseUrl)
     {
-        $this->formatter = $formatter;
+        $this->databaseUrl = $databaseUrl;
     }
 
-    public function execute(array $options, ?string $outputFilePath = '', ?string $inputFilePath = ''): array
+    final public function execute(array $options, ?string $outputFilePath = '', ?string $inputFilePath = ''): array
     {
         $command = $this->getCommand($options);
         if ($inputFilePath) {
@@ -33,13 +39,13 @@ abstract class AbstractMysqlCliExecutor
             }
             $command .= ">$outputFilePath";
         }
-        $command .= ' 2>&1';
         $output = [];
         $return = 0;
         exec($command, $output, $return);
         if (0 !== $return) {
             throw new MysqlCliException($command, $output, $return);
         }
+        $this->cnfGenerator->delete();
 
         return $output;
     }
@@ -47,6 +53,15 @@ abstract class AbstractMysqlCliExecutor
     protected function getCommand(array $options): string
     {
         $commandOptions = '';
+
+        if (array_key_exists(self::DEFAULT_EXTRA_FILE, $options)) {
+            $commandOptions .= ' '.self::DEFAULT_EXTRA_FILE.'='.$options[self::DEFAULT_EXTRA_FILE];
+            unset($options[self::DEFAULT_EXTRA_FILE]);
+        } else {
+            $this->cnfGenerator = new MysqlCnfFileGenerator($this->databaseUrl);
+            $commandOptions .= ' '.self::DEFAULT_EXTRA_FILE.'='.$this->cnfGenerator->generate();
+        }
+
         foreach ($options as $flag => $value) {
             $commandOptions .= " $flag";
             if ($value) {
@@ -55,9 +70,9 @@ abstract class AbstractMysqlCliExecutor
         }
 
         return $this->getCommandName()
-                .' '
+            .' '
             .$commandOptions
-                .' '
-            .$this->formatter->format();
+            .' '
+            .ltrim(parse_url($this->databaseUrl, PHP_URL_PATH), '/');
     }
 }
