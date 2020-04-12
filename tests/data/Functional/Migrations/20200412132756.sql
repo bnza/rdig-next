@@ -1,8 +1,3 @@
--- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
---
--- Host: localhost    Database: rdig_next
--- ------------------------------------------------------
--- Server version	5.7.29-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,9 +10,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `app_users`
---
 
 DROP TABLE IF EXISTS `app_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -33,9 +25,6 @@ CREATE TABLE `app_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `area`
---
 
 DROP TABLE IF EXISTS `area`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -44,7 +33,7 @@ CREATE TABLE `area` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `site` int(11) NOT NULL,
   `code` varchar(4) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_D7943D6877153098694309E4` (`code`,`site`),
@@ -54,9 +43,6 @@ CREATE TABLE `area` (
 ) ENGINE=InnoDB AUTO_INCREMENT=900 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `bucket`
---
 
 DROP TABLE IF EXISTS `bucket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -76,9 +62,6 @@ CREATE TABLE `bucket` (
 ) ENGINE=InnoDB AUTO_INCREMENT=30490 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `campaign`
---
 
 DROP TABLE IF EXISTS `campaign`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -94,9 +77,6 @@ CREATE TABLE `campaign` (
 ) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `context`
---
 
 DROP TABLE IF EXISTS `context`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -124,9 +104,6 @@ CREATE TABLE `context` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24593 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `finding`
---
 
 DROP TABLE IF EXISTS `finding`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -147,9 +124,6 @@ CREATE TABLE `finding` (
 ) ENGINE=InnoDB AUTO_INCREMENT=200183 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `migration_versions`
---
 
 DROP TABLE IF EXISTS `migration_versions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -161,9 +135,6 @@ CREATE TABLE `migration_versions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `object`
---
 
 DROP TABLE IF EXISTS `object`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -191,7 +162,7 @@ CREATE TABLE `object` (
   `inscription` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `conservation_year` smallint(6) DEFAULT NULL,
-  `fragments` smallint(6) DEFAULT NULL,
+  `fragments` int(11) DEFAULT NULL,
   `coord_n` double DEFAULT NULL,
   `coord_e` double DEFAULT NULL,
   `coord_z` double DEFAULT NULL,
@@ -226,9 +197,6 @@ CREATE TABLE `object` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `phase`
---
 
 DROP TABLE IF EXISTS `phase`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -244,9 +212,6 @@ CREATE TABLE `phase` (
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `pottery`
---
 
 DROP TABLE IF EXISTS `pottery`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -313,9 +278,6 @@ CREATE TABLE `pottery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `sample`
---
 
 DROP TABLE IF EXISTS `sample`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -336,26 +298,19 @@ CREATE TABLE `sample` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `site`
---
 
 DROP TABLE IF EXISTS `site`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `site` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_694309E477153098` (`code`),
-  UNIQUE KEY `UNIQ_694309E45E237E06` (`name`)
+  UNIQUE KEY `UNIQ_694309E477153098` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `users_allowed_sites`
---
 
 DROP TABLE IF EXISTS `users_allowed_sites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -365,16 +320,13 @@ CREATE TABLE `users_allowed_sites` (
   `user_uuid` char(36) CHARACTER SET ascii NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_7644B8B6ABFE1C6FF6BD1646` (`user_uuid`,`site_id`),
+  UNIQUE KEY `UNIQ_694309E477153098` (`user_uuid`,`site_id`),
   KEY `IDX_7644B8B6F6BD1646` (`site_id`),
   CONSTRAINT `FK_7644B8B6A76ED395` FOREIGN KEY (`user_uuid`) REFERENCES `app_users` (`uuid`) ON DELETE CASCADE,
   CONSTRAINT `FK_7644B8B6F6BD1646` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__f__chronology`
---
 
 DROP TABLE IF EXISTS `voc__f__chronology`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -387,9 +339,6 @@ CREATE TABLE `voc__f__chronology` (
 ) ENGINE=InnoDB AUTO_INCREMENT=461 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__f__color`
---
 
 DROP TABLE IF EXISTS `voc__f__color`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -402,9 +351,6 @@ CREATE TABLE `voc__f__color` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2881 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__class`
---
 
 DROP TABLE IF EXISTS `voc__o__class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -417,9 +363,6 @@ CREATE TABLE `voc__o__class` (
 ) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__decoration`
---
 
 DROP TABLE IF EXISTS `voc__o__decoration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -432,9 +375,6 @@ CREATE TABLE `voc__o__decoration` (
 ) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__material_class`
---
 
 DROP TABLE IF EXISTS `voc__o__material_class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -447,9 +387,6 @@ CREATE TABLE `voc__o__material_class` (
 ) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__material_type`
---
 
 DROP TABLE IF EXISTS `voc__o__material_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -462,9 +399,6 @@ CREATE TABLE `voc__o__material_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=556 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__preservation`
---
 
 DROP TABLE IF EXISTS `voc__o__preservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -477,9 +411,6 @@ CREATE TABLE `voc__o__preservation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__technique`
---
 
 DROP TABLE IF EXISTS `voc__o__technique`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -492,9 +423,6 @@ CREATE TABLE `voc__o__technique` (
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__o__type`
---
 
 DROP TABLE IF EXISTS `voc__o__type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -507,9 +435,6 @@ CREATE TABLE `voc__o__type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2592 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__class`
---
 
 DROP TABLE IF EXISTS `voc__p__class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -522,9 +447,6 @@ CREATE TABLE `voc__p__class` (
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__decoration`
---
 
 DROP TABLE IF EXISTS `voc__p__decoration`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -537,9 +459,6 @@ CREATE TABLE `voc__p__decoration` (
 ) ENGINE=InnoDB AUTO_INCREMENT=772 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__firing`
---
 
 DROP TABLE IF EXISTS `voc__p__firing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -552,9 +471,6 @@ CREATE TABLE `voc__p__firing` (
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__inclusions_frequency`
---
 
 DROP TABLE IF EXISTS `voc__p__inclusions_frequency`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -567,9 +483,6 @@ CREATE TABLE `voc__p__inclusions_frequency` (
 ) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__inclusions_size`
---
 
 DROP TABLE IF EXISTS `voc__p__inclusions_size`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -582,9 +495,6 @@ CREATE TABLE `voc__p__inclusions_size` (
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__inclusions_type`
---
 
 DROP TABLE IF EXISTS `voc__p__inclusions_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -597,9 +507,6 @@ CREATE TABLE `voc__p__inclusions_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__preservation`
---
 
 DROP TABLE IF EXISTS `voc__p__preservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -612,9 +519,6 @@ CREATE TABLE `voc__p__preservation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__shape`
---
 
 DROP TABLE IF EXISTS `voc__p__shape`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -627,9 +531,6 @@ CREATE TABLE `voc__p__shape` (
 ) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__surface_treatment`
---
 
 DROP TABLE IF EXISTS `voc__p__surface_treatment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -642,9 +543,6 @@ CREATE TABLE `voc__p__surface_treatment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=584 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__p__technique`
---
 
 DROP TABLE IF EXISTS `voc__p__technique`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -657,9 +555,6 @@ CREATE TABLE `voc__p__technique` (
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `voc__s__type`
---
 
 DROP TABLE IF EXISTS `voc__s__type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -672,9 +567,6 @@ CREATE TABLE `voc__s__type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Temporary table structure for view `vw_finding`
---
 
 DROP TABLE IF EXISTS `vw_finding`;
 /*!50001 DROP VIEW IF EXISTS `vw_finding`*/;
@@ -690,9 +582,6 @@ SET character_set_client = utf8;
  1 AS `no`*/;
 SET character_set_client = @saved_cs_client;
 
---
--- Final view structure for view `vw_finding`
---
 
 /*!50001 DROP VIEW IF EXISTS `vw_finding`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
@@ -717,4 +606,3 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-12 15:56:43
