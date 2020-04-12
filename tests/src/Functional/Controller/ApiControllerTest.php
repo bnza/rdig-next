@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Functional\Controller;
 
 use App\Tests\Helper\TestFixturesLoaderTrait;
@@ -10,19 +9,57 @@ class ApiControllerTest extends WebTestCase
 {
     use TestFixturesLoaderTrait;
 
-    public function testGetSites()
+    public function dataProvider(): array
     {
-        $this->loadFixtures([
+        return  [
+            'site' => [
+                '/api/sites?page=1',
                 [
-                    'App\\Controller\\ApiController',
-                    'site_get.yml',
+                    [
+                        'App\\Controller\\ApiController',
+                        'site_get.yml',
+                    ],
                 ],
-            ]
-        );
+            ],
+            'area' => [
+                '/api/areas?page=1',
+                [
+                    [
+                        'App\\Controller\\ApiController',
+                        'site_get.yml',
+                    ],
+                    [
+                        'App\\Controller\\ApiController',
+                        'area_get.yml',
+                    ],
+                ],
+            ],
+            'campaign' => [
+                '/api/campaigns?page=1',
+                [
+                    [
+                        'App\\Controller\\ApiController',
+                        'site_get.yml',
+                    ],
+                    [
+                        'App\\Controller\\ApiController',
+                        'campaign_get.yml',
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testApiGet(string $uri, array $fixures)
+    {
+        $objects = $this->loadFixtures($fixures);
 
         $this->getBrowser()->request(
             'GET',
-            '/api/sites?page=1',
+            $uri,
             [],
             [],
             ['HTTP_ACCEPT' => 'application/ld+json']

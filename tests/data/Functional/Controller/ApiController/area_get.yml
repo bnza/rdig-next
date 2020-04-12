@@ -1,0 +1,6 @@
+\App\Entity\AreaEntity:
+    area{1..10}:
+        site: '@site*'
+        code (unique): '<regexify("[A-Z]{2}")>'
+        name (unique): '<sentence(3,true)>'
+        location: '50%? <sentence(3,true)>'

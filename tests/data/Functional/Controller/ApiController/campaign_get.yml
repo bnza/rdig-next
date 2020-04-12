@@ -1,0 +1,4 @@
+\App\Entity\CampaignEntity:
+    campaign{1..10}:
+        site: '@site*'
+        year: '<numberBetween(2000, 2099)>'
