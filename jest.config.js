@@ -6,5 +6,6 @@ const preset = require("@vue/cli-plugin-unit-jest/presets/typescript-and-babel/j
 module.exports = deepmerge(preset, {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/assets/js/src/$1"
-  }
+  },
+  setupFiles: ["./assets/js/tests/unit/setup.js"]
 });

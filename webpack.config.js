@@ -2,6 +2,8 @@
 const Encore = require("@symfony/webpack-encore");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -63,8 +65,10 @@ Encore
     }
   })
 
+  .addPlugin(new VuetifyLoaderPlugin())
   // enables Sass/SCSS support
   .enableSassLoader(function(options) {
+    options.implementation = require("sass");
     if (Object.prototype.hasOwnProperty.call(options, "outputStyle")) {
       if (!Object.prototype.hasOwnProperty.call(options, "sassOptions")) {
         options.sassOptions = {};
@@ -72,6 +76,10 @@ Encore
       options.sassOptions.outputStyle = options.outputStyle;
       delete options.outputStyle;
     }
+    // Requires sass-loader@^7.0.0
+    // Must changes for sass-loader@^8.0.0
+    options.prependData = "@import './assets/styles/variables.sass'";
+    return options;
   })
 
   // uncomment if you use TypeScript
