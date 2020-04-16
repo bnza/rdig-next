@@ -1,17 +1,40 @@
-import { shallowMount } from "@vue/test-utils";
-import {getVuetifyMountOption, dropLocalVue} from "../../plugins/vuetify";
+import { shallowMount, mount} from "@vue/test-utils";
+import {getVuetifyMountOption, dropLocalVue, getLocalVue} from "../../plugins/vuetify";
 // @ts-ignore
-import HelloWorld from "@/components/AppBar.vue";
+import AppBar from "@/components/AppBar.vue";
+import Vuex from "vuex";
 
-afterAll(dropLocalVue)
+beforeAll(dropLocalVue);
+beforeAll(() => getLocalVue([Vuex]));
+afterAll(dropLocalVue);
 
 describe("AppBar.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const mountOptions = getVuetifyMountOption({
-      propsData: { msg }
+  describe("Store interaction", () => {
+    it("Click <v-app-bar-nav-icon> trigger AppNavigationDrawer.toggleValue ", () => {
+      const toggleValue = jest.fn();
+      const store = new Vuex.Store({
+        modules: {
+          components: {
+            namespaced: true,
+            modules: {
+              AppNavigationDrawer: {
+                namespaced: true,
+                mutations: {
+                  toggleValue
+                }
+              }
+            }
+          }
+        }
+      });
+      const mountOptions = getVuetifyMountOption({
+        stubs: ['router-link'],
+        store
+      });
+      const wrapper = mount(AppBar, mountOptions);
+      const button = wrapper.find('[data-testid="toggleAppNavigationDrawerValue"]');
+      button.vm.$emit('click')
+      expect(toggleValue).toHaveBeenCalled();
     });
-    const wrapper = shallowMount(HelloWorld, mountOptions);
-    expect(wrapper.text()).toMatch('rDig');
   });
 });

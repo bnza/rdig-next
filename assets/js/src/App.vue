@@ -1,10 +1,8 @@
 <template>
-  <div id="app">
-    <v-app>
-      <app-navigation-drawer />
-      <app-bar />
-    </v-app>
-  </div>
+  <v-app>
+    <app-navigation-drawer />
+    <app-bar />
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -20,6 +18,4 @@ import AppBar from "@/components/AppBar.vue";
 })
 export default class App extends Vue {}
 </script>
-<style lang="sass">
-
-</style>
+<style lang="sass"></style>

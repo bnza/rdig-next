@@ -1,6 +1,9 @@
 <template>
   <v-app-bar app>
-    <v-app-bar-nav-icon />
+    <v-app-bar-nav-icon
+      data-testid="toggleAppNavigationDrawerValue"
+      @click="toggleAppNavigationDrawerValue"
+    />
     <v-toolbar-title>
       <router-link to="/" replace>
         <span class="title ml-3 mr-5">
@@ -18,12 +21,19 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+const AppNavigationDrawerStoreComponent = namespace(
+  "components/AppNavigationDrawer"
+);
 
 @Component
 export default class AppBar extends Vue {
   get logoSrc(): string {
     return require("../../../images/rdig_logo.png");
   }
+
+  @AppNavigationDrawerStoreComponent.Mutation("toggleValue")
+  public toggleAppNavigationDrawerValue!: () => void;
 }
 </script>
 
